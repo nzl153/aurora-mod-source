@@ -1,0 +1,8 @@
+{
+  "AURORAMOD_SCAN_SELECT": "Choose any number of cards to move to the discard pile.",
+  "AURORAMOD_MODULE_REPLACE": "Modules are full. Choose one to replace - it triggers once before leaving.",
+  "AURORAMOD_MODULE_CHOOSE_TYPE": "Choose a module type to deploy.",
+  "AURORAMOD_MODULE_CHOOSE": "Choose a Module to Rotate.",
+  "AURORAMOD_MODULE_SELECT": "Choose a Module.",
+  "AURORAMOD_HEAT_CHOOSE": "Choose to gain 1 Heat or vent 1 Heat."
+}

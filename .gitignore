@@ -1,0 +1,44 @@
+# --- Visual Studio / .NET ---
+.vs/
+obj/
+*.csproj.user
+*.suo
+*.sln.docstates
+
+# --- 构建产物 ---
+dist/
+_publish_out/
+
+# --- Godot ---
+.godot/
+export_presets.cfg
+import_defaults.cfg
+*.pck
+
+# --- Spine 运行时 ---
+# spine-godot 的运行时二进制不随仓库分发（受 Spine Runtimes License 约束），
+# 请自行从 esotericsoftware.com 获取后放进 bin/windows/。
+# .gdextension 配置本身是保留的。
+bin/windows/
+bin/*/
+
+# spine-godot 编辑器临时锁文件
+~*
+
+# --- 编辑器 / 工具配置 ---
+.cursor/
+.idea/
+.vscode/
+
+# --- 内部工作文件（不进仓库）---
+# 遗物图的 1254px 原稿：放在 Aurora/ 下会被打进 pck，白白让成品大 17 MB。
+Aurora/Images/Relics/_src_1254/
+_art_preview/
+_power_il.res
+
+# --- 系统 ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

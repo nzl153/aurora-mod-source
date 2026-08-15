@@ -1,0 +1,8 @@
+{
+  "AURORAMOD_SCAN_SELECT": "捨て札に送るカードを好きな枚数選択。",
+  "AURORAMOD_MODULE_REPLACE": "モジュールスロットが満杯。入れ替えるモジュールを1つ選択。外れるモジュールは離脱前に1回発動する。",
+  "AURORAMOD_MODULE_CHOOSE_TYPE": "配備するモジュールの種類を選択。",
+  "AURORAMOD_MODULE_CHOOSE": "換装するモジュールを1つ選択。",
+  "AURORAMOD_MODULE_SELECT": "モジュールを1つ選択。",
+  "AURORAMOD_HEAT_CHOOSE": "ヒートを1得るか、ヒートを1放熱するか選択。"
+}

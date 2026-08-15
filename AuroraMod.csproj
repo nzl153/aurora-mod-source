@@ -1,0 +1,49 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1">
+  <PropertyGroup>
+    <!-- 本机无默认路径时请设环境变量 STS2_GAME_DIR，或构建 -p:Sts2GameRoot="你的游戏目录" -->
+    <Sts2GameRoot Condition="'$(Sts2GameRoot)'==''">$([System.Environment]::GetEnvironmentVariable('STS2_GAME_DIR'))</Sts2GameRoot>
+    <Sts2GameRoot Condition="'$(Sts2GameRoot)'==''">C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2</Sts2GameRoot>
+    <Sts2DataDir>$(Sts2GameRoot)\data_sts2_windows_x86_64</Sts2DataDir>
+    <Sts2WorkshopContentDir Condition="'$(Sts2WorkshopContentDir)'==''">$(Sts2GameRoot)\..\..\workshop\content\2868840</Sts2WorkshopContentDir>
+    <BaseLibDll Condition="'$(BaseLibDll)'=='' And Exists('$(Sts2GameRoot)\mods\BaseLib.3.3.0\BaseLib.dll')">$(Sts2GameRoot)\mods\BaseLib.3.3.0\BaseLib.dll</BaseLibDll>
+    <BaseLibDll Condition="'$(BaseLibDll)'=='' And Exists('$(Sts2WorkshopContentDir)\3737335127\BaseLib\BaseLib.dll')">$(Sts2WorkshopContentDir)\3737335127\BaseLib\BaseLib.dll</BaseLibDll>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(Sts2DataDir)\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="BaseLib">
+      <HintPath>$(BaseLibDll)</HintPath>
+    </Reference>
+    <Reference Include="GodotSharp">
+      <HintPath>$(Sts2DataDir)\GodotSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="sts2">
+      <HintPath>$(Sts2DataDir)\sts2.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.1.6" />
+    <AdditionalFiles Include="Aurora\localization\**\*.json" />
+  </ItemGroup>
+  <!-- 构建成功后复制 DLL 到 mods/aurora。跳过部署：-p:DeployAuroraToMods=false -->
+  <PropertyGroup>
+    <AuroraModsDeployDir Condition="'$(AuroraModsDeployDir)'==''">$(Sts2GameRoot)\mods\aurora</AuroraModsDeployDir>
+  </PropertyGroup>
+  <Target Name="DeployAuroraDllToMods" AfterTargets="Build" Condition="'$(DeployAuroraToMods)'!='false'">
+    <MakeDir Directories="$(AuroraModsDeployDir)" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFiles="$(AuroraModsDeployDir)\Aurora.dll" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\Aurora.json" DestinationFiles="$(AuroraModsDeployDir)\Aurora.json" SkipUnchangedFiles="true" Condition="Exists('$(MSBuildProjectDirectory)\Aurora.json')" />
+  </Target>
+</Project>

@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://src/Core/Nodes/Combat/NCreatureVisuals.cs" id="1_ncv"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Aurora/Spine/aurora_skel_data.tres" id="2_skel"]
+[ext_resource type="Script" path="res://Aurora/Scenes/AuroraCombatSpeed.gd" id="3_speed"]
+
+[node name="AuroraVisual" type="Node2D"]
+script = ExtResource("1_ncv")
+metadata/_edit_group_ = true
+
+[node name="Visuals" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("2_skel")
+script = ExtResource("3_speed")
+preview_skin = "Default"
+preview_animation = "idle_loop"
+preview_frame = false
+preview_time = 0.0
+unique_name_in_owner = true
+position = Vector2(5, -224)
+scale = Vector2(0.235, 0.235)
+
+[node name="Bounds" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -121.0
+offset_top = -280.0
+offset_right = 121.0
+mouse_filter = 2
+
+[node name="CenterPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -165)
+
+[node name="IntentPos" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(20, -351)

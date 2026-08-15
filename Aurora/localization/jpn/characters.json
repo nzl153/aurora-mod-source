@@ -1,0 +1,16 @@
+{
+  "AURORAMOD-AURORA.title": "オーロラ",
+  "AURORAMOD-AURORA.titleObject": "オーロラ",
+  "AURORAMOD-AURORA.description": "停止命令が届かなかった戦争機械。\n炉心を熱したまま走り、オーバーロードと引き換えに一撃を重くする。",
+  "AURORAMOD-AURORA.pronounObject": "彼女",
+  "AURORAMOD-AURORA.possessiveAdjective": "彼女の",
+  "AURORAMOD-AURORA.pronounPossessive": "彼女のもの",
+  "AURORAMOD-AURORA.pronounSubject": "彼女",
+  "AURORAMOD-AURORA.cardsModifierTitle": "オーロラのカード",
+  "AURORAMOD-AURORA.cardsModifierDescription": "オーロラのカードが報酬と店に出現するようになる。",
+  "AURORAMOD-AURORA.aromaPrinciple": "[sine][purple]……停止命令、未受信……継続……[/purple][/sine]",
+  "AURORAMOD-AURORA.eventDeathPrevention": "戦争は、まだ終わっていない。",
+  "AURORAMOD-AURORA.banter.alive.endTurnPing": "まだ動ける。",
+  "AURORAMOD-AURORA.banter.dead.endTurnPing": "……システム、限界。",
+  "AURORAMOD-AURORA.goldMonologue": "[sine]この金貨……装甲を一式、新調できる。[/sine]"
+}

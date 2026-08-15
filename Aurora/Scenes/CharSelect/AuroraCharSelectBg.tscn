@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Texture2D" path="res://Aurora/Images/CharSelect/char_select_bg_aurora.png" id="1_bg"]
+[ext_resource type="Texture2D" path="res://Aurora/Images/CharSelect/fx_bloom.png" id="2_bloom"]
+[ext_resource type="Script" path="res://Aurora/Scenes/CharSelect/AuroraCharSelectGlow.gd" id="3_glowfx"]
+[ext_resource type="SpineSkeletonDataResource" path="res://Aurora/Spine/CharSelect/aurora_char_select_skel_data.tres" id="4_port"]
+[ext_resource type="Script" path="res://Aurora/Scenes/CharSelect/AuroraCharSelectSpine.gd" id="5_breathe"]
+[ext_resource type="Texture2D" path="res://Aurora/Images/CharSelect/fx_glow.png" id="6_glow"]
+[ext_resource type="Script" path="res://Aurora/Scenes/CharSelect/AuroraCharSelectMotes.gd" id="7_motes"]
+[ext_resource type="Texture2D" path="res://Aurora/Images/CharSelect/fx_mote.png" id="8_mote"]
+[ext_resource type="Texture2D" path="res://Aurora/Images/CharSelect/fx_vignette.png" id="9_vig"]
+[ext_resource type="Script" path="res://Aurora/Scenes/CharSelect/AuroraCharSelectSparks.gd" id="10_sparks"]
+
+[sub_resource type="CanvasItemMaterial" id="mat_add"]
+blend_mode = 1
+
+[node name="AuroraCharSelectBg" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Backdrop" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="TorsoBloom" type="Sprite2D" parent="."]
+material = SubResource("mat_add")
+position = Vector2(1240, 470)
+scale = Vector2(2.6, 2.6)
+texture = ExtResource("2_bloom")
+script = ExtResource("3_glowfx")
+
+[node name="Portrait" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("4_port")
+preview_skin = "Default"
+preview_animation = "idle"
+preview_frame = false
+preview_time = 0.0
+position = Vector2(1320, 785)
+scale = Vector2(1.32, 1.32)
+script = ExtResource("5_breathe")
+
+[node name="SwordGlint" type="Sprite2D" parent="."]
+material = SubResource("mat_add")
+position = Vector2(760, 690)
+scale = Vector2(1.6, 1.6)
+texture = ExtResource("6_glow")
+script = ExtResource("3_glowfx")
+
+[node name="Motes" type="CPUParticles2D" parent="."]
+material = SubResource("mat_add")
+position = Vector2(960, 540)
+amount = 34
+texture = ExtResource("8_mote")
+script = ExtResource("7_motes")
+
+[node name="SwordSparks" type="CPUParticles2D" parent="."]
+material = SubResource("mat_add")
+position = Vector2(720, 720)
+texture = ExtResource("6_glow")
+script = ExtResource("10_sparks")
+
+[node name="Vignette" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("9_vig")
+expand_mode = 1
+stretch_mode = 6
+mouse_filter = 2

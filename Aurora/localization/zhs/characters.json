@@ -1,0 +1,16 @@
+{
+  "AURORAMOD-AURORA.title": "奥萝拉",
+  "AURORAMOD-AURORA.titleObject": "奥萝拉",
+  "AURORAMOD-AURORA.description": "一台没有收到停机指令的战争机械。\n战斗中不断推高炉温，用濒临过载的机体换取更重的一击。",
+  "AURORAMOD-AURORA.pronounObject": "她",
+  "AURORAMOD-AURORA.possessiveAdjective": "她的",
+  "AURORAMOD-AURORA.pronounPossessive": "她的",
+  "AURORAMOD-AURORA.pronounSubject": "她",
+  "AURORAMOD-AURORA.cardsModifierTitle": "奥萝拉卡牌",
+  "AURORAMOD-AURORA.cardsModifierDescription": "奥萝拉的卡牌会出现在奖励和商店中。",
+  "AURORAMOD-AURORA.aromaPrinciple": "[sine][purple]……未收到停机指令……继续执行……[/purple][/sine]",
+  "AURORAMOD-AURORA.eventDeathPrevention": "战争尚未结束。",
+  "AURORAMOD-AURORA.banter.alive.endTurnPing": "仍在运转。",
+  "AURORAMOD-AURORA.banter.dead.endTurnPing": "……系统正在失效。",
+  "AURORAMOD-AURORA.goldMonologue": "[sine]这些金币……足够更换一套装甲。[/sine]"
+}

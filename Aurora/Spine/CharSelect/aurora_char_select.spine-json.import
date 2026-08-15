@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.json"
+type="SpineSkeletonFileResource"
+uid="uid://cn4fqp6dqudnl"
+path="res://.godot/imported/aurora_char_select.spine-json-f89087f29e5f9eade10ceedfda825dca.spjson"
+
+[deps]
+
+source_file="res://Aurora/Spine/CharSelect/aurora_char_select.spine-json"
+dest_files=["res://.godot/imported/aurora_char_select.spine-json-f89087f29e5f9eade10ceedfda825dca.spjson"]
+
+[params]
+

@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://vfl4btrds3in"
+path="res://.godot/imported/aurora_char_select.atlas-b12de82a075a99d3a7b3f4631728ce5c.spatlas"
+
+[deps]
+
+source_file="res://Aurora/Spine/CharSelect/aurora_char_select.atlas"
+dest_files=["res://.godot/imported/aurora_char_select.atlas-b12de82a075a99d3a7b3f4631728ce5c.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

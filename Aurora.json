@@ -1,0 +1,17 @@
+{
+  "id": "Aurora",
+  "name": "Aurora",
+  "author": "nzl",
+  "description": "Playable Aurora - a war machine whose shutdown order never came. She fights on a Heat/Overload gauge: the closer to Overload, the harder she hits, and the more it burns her. Four paths: Overheat, Momentum, Modules, Command-Chain.",
+  "version": "1.0.0",
+  "has_pck": true,
+  "has_dll": true,
+  "min_game_version": "v0.107.1",
+  "dependencies": [
+	{
+	  "id": "BaseLib",
+	  "min_version": "v3.3.0"
+	}
+  ],
+  "affects_gameplay": true
+}

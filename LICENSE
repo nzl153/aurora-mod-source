@@ -1,0 +1,95 @@
+Aurora — Slay the Spire 2 character mod
+双授权 / Dual License
+
+本仓库的内容按类型适用不同授权，请分别遵守。
+This repository is licensed in two parts. Please follow the terms for each part.
+
+================================================================================
+1. 代码 / Source code  —  MIT License
+================================================================================
+
+适用范围 / Applies to:
+  AuroraCode/**        (C#)
+  Aurora/Scenes/**     (*.gd, *.tscn)
+  Aurora/Shaders/**
+  scenes/**
+  *.csproj, *.sln, project.godot
+
+--------------------------------------------------------------------------------
+
+MIT License
+
+Copyright (c) 2026 nzl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+2. 美术与音频素材 / Art and audio assets  —  CC BY-NC-SA 4.0
+================================================================================
+
+适用范围 / Applies to:
+  Aurora/Images/**     (卡面、遗物、药水、能力图标、特效贴图)
+  Aurora/Spine/**      (Spine 骨骼、图集、贴图)
+  Aurora/Audio/**
+  Aurora/CharUi/**
+  images/**
+  icon.svg
+  docs/*.png
+
+Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+(CC BY-NC-SA 4.0)
+
+  https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+概要 / Summary:
+
+  可以 / You may
+    - 使用、复制、修改这些素材
+    - 用它们做你自己的 mod 或衍生作品
+
+  必须 / You must
+    - 署名 (BY)        标明原作者 nzl 并链接回本仓库
+    - 非商业 (NC)      不得用于任何商业用途
+    - 相同方式共享 (SA) 衍生作品必须采用同一协议
+
+  这不是"保留所有权利"——素材是开放的，只是要求署名、非商业、并保持开放。
+
+================================================================================
+3. 不属于本仓库的部分 / Not covered by this repository
+================================================================================
+
+本 mod 是《杀戮尖塔 2》(Slay the Spire 2) 的非官方粉丝作品，与 Mega Crit 无关，
+未获其认可。游戏本体的代码、美术、音频、商标均归 Mega Crit 所有，不在本仓库内，
+也不适用上述任何授权。
+
+This is an unofficial fan mod for Slay the Spire 2. It is not affiliated with,
+endorsed by, or sponsored by Mega Crit. All Slay the Spire 2 code, art, audio,
+and trademarks remain the property of Mega Crit and are neither included in nor
+licensed by this repository.
+
+运行本 mod 需要正版《杀戮尖塔 2》以及第三方模组库 BaseLib，两者均按其各自的
+授权条款分发。
+Running this mod requires a legitimate copy of Slay the Spire 2 and the
+third-party mod library BaseLib, each distributed under its own terms.
+
+Spine 运行时 (spine-godot) 不包含在本仓库中，需自行获取；它受 Esoteric Software
+的 Spine Runtimes License 约束。
+The Spine runtime (spine-godot) is not included in this repository and must be
+obtained separately. It is governed by Esoteric Software's Spine Runtimes
+License.

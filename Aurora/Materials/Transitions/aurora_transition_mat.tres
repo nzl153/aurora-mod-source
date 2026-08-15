@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://Aurora/Shaders/aurora_transition.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" path="res://Aurora/Images/Transitions/aurora_transition_mask.png" id="2_mask"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/threshold = 0.0
+shader_parameter/edgeWidth = 0.028
+shader_parameter/baseColor = Color(0.0627, 0.0314, 0.1137, 1)
+shader_parameter/edgeColor = Color(0.6588, 0.302, 1, 1)
+shader_parameter/coreColor = Color(0.9176, 0.851, 1, 1)
+shader_parameter/transitionTex = ExtResource("2_mask")

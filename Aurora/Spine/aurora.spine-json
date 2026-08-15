@@ -1,0 +1,1103 @@
+{
+"skeleton": {
+	"hash": "5oNB5CNaegs",
+	"spine": "4.2-from-4.3.23",
+	"x": -1379.4064,
+	"y": -1233.7675,
+	"width": 2884.85,
+	"height": 2061.7805,
+	"images": "./mecha_musume_spine_v7_redrawn_hair/complete_24_parts/",
+	"audio": null
+},
+"bones": [
+	{ "name": "root" },
+	{ "name": "髋", "parent": "root", "length": 30, "rotation": -274.6921, "x": -0.3090057, "y": -129.9858 },
+	{ "name": "躯干", "parent": "髋", "length": 150, "rotation": 3.460117, "x": 50.70541, "y": 4.972271 },
+	{ "name": "01_head_scalp_base", "parent": "躯干", "length": 155.4918, "rotation": -20.85014, "x": 242.96585, "y": 56.2629 },
+	{ "name": "03_hair_front_bangs", "parent": "躯干", "length": 101.89927, "rotation": 138.12015, "x": 404.55225, "y": -14.132023 },
+	{ "name": "_v5_head(1)", "parent": "躯干", "length": 76.81567, "rotation": 112.63178, "x": 414.7124, "y": 13.966405 },
+	{ "name": "躯干2", "parent": "躯干", "length": 171.60353, "rotation": -179.53194, "x": 410.3989, "y": 46.02716 },
+	{ "name": "躯干3", "parent": "躯干", "length": 71.56648, "rotation": 179.89973, "x": 342.2803, "y": -36.77903 },
+	{ "name": "躯干4", "parent": "躯干", "length": 96.53485, "rotation": 158.5006, "x": 386.7053, "y": 84.11022 },
+	{ "name": "06_left_shoulder_armor", "parent": "躯干", "length": 105.07059, "rotation": 11.74801, "x": 124.0602, "y": -40.92406 },
+	{ "name": "10_right_shoulder_armor", "parent": "躯干", "length": 78.6204, "rotation": 144.12196, "x": 217.4881, "y": 113.0115 },
+	{ "name": "11_right_upper_arm", "parent": "10_right_shoulder_armor", "length": 114.67184, "rotation": 13.3087, "x": 78.13664, "y": 0.7002868 },
+	{ "name": "12_right_forearm", "parent": "11_right_upper_arm", "length": 175.51447, "rotation": 1.926096, "x": 115.75526, "y": -2.7749634 },
+	{ "name": "13_right_sword_hand", "parent": "12_right_forearm", "length": 58.36118, "rotation": 4.626939, "x": 156.21706, "y": 5.178253 },
+	{ "name": "18_purple_black_energy_sword", "parent": "13_right_sword_hand", "length": 643.0713, "rotation": -12.846976, "x": 57.88676, "y": 1.7988586 },
+	{ "name": "07_left_upper_arm", "parent": "06_left_shoulder_armor", "length": 112.90483, "rotation": -177.8165, "x": 19.003395, "y": -12.663448 },
+	{ "name": "08_left_forearm", "parent": "07_left_upper_arm", "length": 97.64377, "rotation": 12.464506, "x": 105.2838, "y": 1.501999 },
+	{ "name": "09_left_hand", "parent": "08_left_forearm", "length": 82.4006, "rotation": -2.2904124, "x": 104.96495, "y": 4.424389 },
+	{ "name": "05_waist_pelvis_armor", "parent": "髋", "length": 85.63454, "rotation": 5.553604, "x": -67.33372, "y": 18.907 },
+	{ "name": "16_right_thigh", "parent": "05_waist_pelvis_armor", "length": 250.3182, "rotation": 169.21585, "x": 33.06085, "y": 51.65617 },
+	{ "name": "17_right_lower_leg_and_boot", "parent": "16_right_thigh", "length": 536.736, "rotation": -3.180168, "x": 251.4322, "y": -3.072952 },
+	{ "name": "14_left_thigh", "parent": "05_waist_pelvis_armor", "length": 251.6921, "rotation": -175.13635, "x": 43.66717, "y": -63.51639 },
+	{ "name": "15_left_lower_leg_and_boot", "parent": "14_left_thigh", "length": 474.3726, "rotation": 3.6476626, "x": 241.84155, "y": 0.6027622 },
+	{ "name": "19_upper_left_floating_part", "parent": "root", "length": 94.78678, "rotation": -114.47616, "x": -238.01477, "y": 268.368 },
+	{ "name": "20_upper_right_floating_part", "parent": "root", "length": 87.16006, "rotation": -67.4127, "x": 148.9064, "y": 234.8906 },
+	{
+		"name": "躯干5",
+		"parent": "躯干",
+		"length": 449.4331,
+		"rotation": -211.11105,
+		"x": -383.3848,
+		"y": -349.24875,
+		"scaleX": 1.394749,
+		"scaleY": 1.421304,
+		"shearY": 34.45072
+	}
+],
+"slots": [
+	{ "name": "05_hair_side_right", "bone": "躯干3", "attachment": "_discarded_hair/05_hair_side_right" },
+	{ "name": "02_hair_back_main", "bone": "躯干2", "attachment": "_discarded_hair/02_hair_back_main" },
+	{ "name": "01_head_scalp_base", "bone": "01_head_scalp_base", "attachment": "_discarded_hair/01_head_scalp_base" },
+	{ "name": "07_left_upper_arm", "bone": "07_left_upper_arm", "attachment": "07_left_upper_arm" },
+	{ "name": "04_chest_torso", "bone": "躯干", "attachment": "04_chest_torso" },
+	{ "name": "05_waist_pelvis_armor", "bone": "05_waist_pelvis_armor", "attachment": "05_waist_pelvis_armor" },
+	{ "name": "06_left_shoulder_armor", "bone": "06_left_shoulder_armor", "attachment": "06_left_shoulder_armor" },
+	{ "name": "08_left_forearm", "bone": "08_left_forearm", "attachment": "08_left_forearm" },
+	{ "name": "09_left_hand", "bone": "09_left_hand", "attachment": "09_left_hand" },
+	{ "name": "10_right_shoulder_armor", "bone": "10_right_shoulder_armor", "attachment": "10_right_shoulder_armor" },
+	{ "name": "11_right_upper_arm", "bone": "11_right_upper_arm", "attachment": "11_right_upper_arm" },
+	{ "name": "14_left_thigh", "bone": "14_left_thigh", "attachment": "14_left_thigh" },
+	{ "name": "15_left_lower_leg_and_boot", "bone": "15_left_lower_leg_and_boot", "attachment": "15_left_lower_leg_and_boot" },
+	{ "name": "_v5_head(1)", "bone": "_v5_head(1)", "attachment": "_v5_head(1)" },
+	{ "name": "16_right_thigh", "bone": "16_right_thigh", "attachment": "16_right_thigh" },
+	{ "name": "17_right_lower_leg_and_boot", "bone": "17_right_lower_leg_and_boot", "attachment": "17_right_lower_leg_and_boot" },
+	{ "name": "19_upper_left_floating_part", "bone": "19_upper_left_floating_part", "attachment": "19_upper_left_floating_part" },
+	{ "name": "20_upper_right_floating_part", "bone": "20_upper_right_floating_part", "attachment": "20_upper_right_floating_part" },
+	{ "name": "03_hair_front_bangs", "bone": "03_hair_front_bangs", "attachment": "_discarded_hair/03_hair_front_bangs" },
+	{ "name": "06_hair_nape_locks2", "bone": "躯干4", "attachment": "06_hair_nape_locks" },
+	{ "name": "_v5_head_closed", "bone": "躯干" },
+	{ "name": "head_closed_gpt", "bone": "root" },
+	{ "name": "18_purple_black_energy_sword", "bone": "18_purple_black_energy_sword", "attachment": "18_purple_black_energy_sword" },
+	{ "name": "12_right_forearm", "bone": "12_right_forearm", "attachment": "12_right_forearm" },
+	{ "name": "13_right_sword_hand", "bone": "13_right_sword_hand", "attachment": "13_right_sword_hand" },
+	{ "name": "slash_effect_purple", "bone": "躯干5", "attachment": "slash_effect_purple" },
+	{ "name": "head_attack_aligned2", "bone": "root" },
+	{ "name": "head_hurt", "bone": "16_right_thigh" }
+],
+"skins": [
+	{
+		"name": "default",
+		"attachments": {
+			"01_head_scalp_base": {
+				"head_attack_aligned": {
+					"x": -33.62608,
+					"y": -17.288246,
+					"scaleX": 0.7584,
+					"scaleY": 0.7584,
+					"rotation": -67.0476,
+					"width": 1024,
+					"height": 1536
+				},
+				"head_closed_gpt": {
+					"x": -147.7163,
+					"y": -13.542665,
+					"scaleX": 0.7584,
+					"scaleY": 0.7584,
+					"rotation": -67.9179,
+					"width": 1024,
+					"height": 1536
+				},
+				"head_hurt": {
+					"x": -21.789227,
+					"y": -23.50622,
+					"scaleX": 0.7584,
+					"scaleY": 0.7584,
+					"rotation": -65.99254,
+					"width": 1024,
+					"height": 1536
+				},
+				"_discarded_hair/01_head_scalp_base": {
+					"x": -148.0847,
+					"y": -13.692123,
+					"scaleX": 0.7583893,
+					"scaleY": 0.7583893,
+					"rotation": -67.9179,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"02_hair_back_main": {
+				"_discarded_hair/02_hair_back_main": {
+					"x": 539.4014,
+					"y": -71.1628,
+					"scaleX": 0.728476,
+					"scaleY": 0.728476,
+					"rotation": 90.7639,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"03_hair_front_bangs": {
+				"_discarded_hair/03_hair_front_bangs": {
+					"x": 533.0337,
+					"y": 309.6387,
+					"scaleX": 0.8518415,
+					"scaleY": 0.8518415,
+					"rotation": 133.1118,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"04_chest_torso": {
+				"04_chest_torso": { "x": -260.9835, "y": 164.08937, "rotation": -88.76803, "width": 1024, "height": 1536 }
+			},
+			"05_hair_side_right": {
+				"_discarded_hair/05_hair_side_right": {
+					"x": 419.2573,
+					"y": -153.8076,
+					"scaleX": 0.6378012,
+					"scaleY": 0.6378012,
+					"rotation": 86.8283,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"05_waist_pelvis_armor": {
+				"05_waist_pelvis_armor": {
+					"x": 69.70656,
+					"y": -16.66558,
+					"scaleX": 0.9693008,
+					"scaleY": 1.0519574,
+					"rotation": -90.86153,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"06_hair_nape_locks2": {
+				"06_hair_nape_locks": {
+					"x": 595.436,
+					"y": -205.54297,
+					"scaleX": 1.0740476,
+					"scaleY": 1.0740476,
+					"rotation": 83.4804,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"06_left_shoulder_armor": {
+				"06_left_shoulder_armor": {
+					"x": -363.5206,
+					"y": 299.4403,
+					"scaleX": 1.0771635,
+					"scaleY": 1.0771635,
+					"rotation": -100.51605,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"07_left_upper_arm": {
+				"07_left_upper_arm": { "x": 349.6735, "y": -299.9122, "rotation": 77.30044, "width": 1024, "height": 1536 }
+			},
+			"08_left_forearm": {
+				"08_left_forearm": {
+					"x": 49.05118,
+					"y": -61.47699,
+					"scaleX": 0.8220584,
+					"scaleY": 0.8220584,
+					"rotation": 64.83593,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"09_left_hand": {
+				"09_left_hand": {
+					"x": 10.917328,
+					"y": -316.9452,
+					"scaleX": 0.8972777,
+					"scaleY": 0.8972777,
+					"rotation": 67.12634,
+					"width": 1024,
+					"height": 1536
+				}
+			},
+			"10_right_shoulder_armor": {
+				"10_right_shoulder_armor": { "x": 418.0925, "y": 227.39543, "rotation": 124.56745, "width": 1024, "height": 1536 }
+			},
+			"11_right_upper_arm": {
+				"11_right_upper_arm": { "x": 385.1212, "y": 147.16457, "rotation": 111.3276, "width": 1024, "height": 1536 }
+			},
+			"12_right_forearm": {
+				"12_right_forearm": { "x": 270.892, "y": 130.1714, "scaleX": 0.8, "rotation": 109.4015, "width": 1024, "height": 1536 }
+			},
+			"13_right_sword_hand": {
+				"13_right_sword_hand": { "x": 114.16548, "y": 121.70124, "scaleX": 0.85, "rotation": 104.77455, "width": 1024, "height": 1536 }
+			},
+			"14_left_thigh": {
+				"14_left_thigh": { "x": 154.6249, "y": -219.3085, "rotation": 84.27482, "width": 1024, "height": 1536 }
+			},
+			"15_left_lower_leg_and_boot": {
+				"15_left_lower_leg_and_boot": { "x": -107.0755, "y": -211.75946, "rotation": 80.62717, "width": 1024, "height": 1536 }
+			},
+			"16_right_thigh": {
+				"16_right_thigh": { "x": 190.2587, "y": -54.60272, "rotation": 99.92262, "width": 1024, "height": 1536 }
+			},
+			"17_right_lower_leg_and_boot": {
+				"17_right_lower_leg_and_boot": { "x": -61.91601, "y": -54.49926, "rotation": 103.1028, "width": 1024, "height": 1536 }
+			},
+			"18_purple_black_energy_sword": {
+				"18_purple_black_energy_sword": { "x": 9.47168, "y": 143.96234, "rotation": 117.62153, "width": 1024, "height": 1536 }
+			},
+			"19_upper_left_floating_part": {
+				"19_upper_left_floating_part": { "x": 556.7486, "y": 320.5568, "rotation": 114.47616, "width": 1024, "height": 1536 }
+			},
+			"20_upper_right_floating_part": {
+				"20_upper_right_floating_part": { "x": 394.9345, "y": -489.3231, "rotation": 67.4127, "width": 1024, "height": 1536 }
+			},
+			"slash_effect_purple": {
+				"slash_effect_purple": {
+					"x": 7.723602,
+					"y": -101.81634,
+					"scaleX": 1.6828676,
+					"scaleY": 1.6828676,
+					"rotation": -7.254364,
+					"width": 700,
+					"height": 700
+				}
+			},
+			"_v5_head(1)": {
+				"_v5_head(1)": {
+					"x": 233.82108,
+					"y": 272.07605,
+					"scaleX": 0.7163098,
+					"scaleY": 0.7163098,
+					"rotation": 155.5878,
+					"width": 1024,
+					"height": 1536
+				}
+			}
+		}
+	}
+],
+"animations": {
+	"attack": {
+		"slots": {
+			"01_head_scalp_base": {
+				"attachment": [
+					{ "time": 0.6333333, "name": "head_closed_gpt" },
+					{ "time": 0.8, "name": "_discarded_hair/01_head_scalp_base" }
+				]
+			},
+			"slash_effect_purple": {
+				"attachment": [
+					{},
+					{ "time": 0.5333333, "name": "slash_effect_purple" },
+					{ "time": 0.6333333 }
+				]
+			}
+		},
+		"bones": {
+			"01_head_scalp_base": {
+				"rotate": [
+					{ "time": 0.4666667, "value": -1.0882034 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"03_hair_front_bangs": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -2.978607 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"05_waist_pelvis_armor": {
+				"translate": [
+					{},
+					{ "time": 0.4666667, "y": -1.000002 },
+					{ "time": 0.6333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.4666667, "y": -5 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"07_left_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.5333333, "value": -3.89711 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"08_left_forearm": {
+				"rotate": [
+					{},
+					{ "time": 0.5333333, "value": -9.80463 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"09_left_hand": {
+				"rotate": [
+					{},
+					{ "time": 0.5333333, "value": 7.442962 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"10_right_shoulder_armor": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": 14.161514 },
+					{ "time": 0.16666667, "value": 24.917755 },
+					{ "time": 0.2666667, "value": 29.06488 },
+					{ "time": 0.4666667, "value": 33.11851 },
+					{ "time": 0.5666666, "value": 14.719345 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"11_right_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.4666667, "value": 5.515633 },
+					{ "time": 0.6333333 }
+				],
+				"translate": [
+					{ "time": 1.3333334, "x": -0.25103, "y": -0.05938172 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.3666667, "x": 5, "y": -2 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"12_right_forearm": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": 21.958326 },
+					{ "time": 0.16666667, "value": 25.57354 },
+					{ "time": 0.23333333, "value": 35.57993 },
+					{ "time": 0.3333333, "value": 45.44264 },
+					{ "time": 0.5, "value": 47.67922 },
+					{ "time": 0.6333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.4666667, "y": -3 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"13_right_sword_hand": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "value": -15.345193 },
+					{ "time": 0.6333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.2666667, "y": -2.001047 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"14_left_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.4, "value": 3.278351 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"15_left_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -4.972621 },
+					{ "time": 0.6333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.4333333, "y": -3 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"16_right_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.23333333, "value": -1.1783142 },
+					{ "time": 0.4333333, "value": -3.1797485 },
+					{ "time": 0.6333333 }
+				],
+				"shear": [
+					{ "time": 0.23333333, "y": 3 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"17_right_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -1.7428656 },
+					{ "time": 0.5, "value": -4.01889 },
+					{ "time": 0.6333333, "value": 0.8514986 },
+					{ "time": 1.3333334 }
+				],
+				"translate": [
+					{},
+					{ "time": 1.3333334 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.4333333, "x": 2, "y": -13 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"18_purple_black_energy_sword": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": 73.14773 },
+					{ "time": 0.13333334, "value": 81.24301 },
+					{ "time": 0.2666667, "value": 100.12731 },
+					{ "time": 0.4666667, "value": 104.71842 },
+					{ "time": 0.5, "value": 78.53977 },
+					{ "time": 0.5333333, "value": 98.45357 },
+					{ "time": 0.6333333, "value": -1.308979 },
+					{ "time": 1.3333334 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.03333333, "y": 12.563152 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"19_upper_left_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -95.78245, "curve": "stepped" },
+					{ "time": 0.6333333, "value": -95.78245 },
+					{ "time": 1.3333334 }
+				],
+				"translate": [
+					{ "time": 0.4333333 },
+					{ "time": 0.6333333, "x": 746.3229, "y": -402.5356 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"20_upper_right_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": 22.89213, "curve": "stepped" },
+					{ "time": 0.6333333, "value": 22.89213 },
+					{ "time": 1.3333334 }
+				],
+				"translate": [
+					{ "time": 0.4333333 },
+					{ "time": 0.6333333, "x": 593.8743, "y": -244.92377 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"_v5_head(1)": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -5.22464 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"躯干": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": 2.132676 },
+					{ "time": 0.6333333 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.4333333, "x": 1.2945862 },
+					{ "time": 1.3333334 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.4333333, "y": -3 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"躯干2": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -7.642792 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"躯干3": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -9.724945 },
+					{ "time": 0.5, "value": -3.573593 },
+					{ "time": 0.6333333 }
+				]
+			},
+			"躯干4": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": -11.508575 },
+					{ "time": 0.6333333 }
+				]
+			}
+		}
+	},
+	"die": {
+		"slots": {
+			"01_head_scalp_base": {
+				"attachment": [
+					{ "time": 0.06666667, "name": "head_hurt" }
+				]
+			},
+			"slash_effect_purple": {
+				"attachment": [
+					{}
+				]
+			}
+		},
+		"bones": {
+			"01_head_scalp_base": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": -1.0863953 },
+					{ "time": 0.5 }
+				]
+			},
+			"03_hair_front_bangs": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": 1.7018738 },
+					{ "time": 1.5 }
+				]
+			},
+			"07_left_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": 7.664154 },
+					{ "time": 1.1666666 }
+				]
+			},
+			"09_left_hand": {
+				"scale": [
+					{ "time": 1.2, "x": 0.98 }
+				],
+				"shear": [
+					{ "time": 1.2, "x": -1.2 }
+				]
+			},
+			"10_right_shoulder_armor": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": 28.38826 }
+				]
+			},
+			"14_left_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.4333333, "value": 9.25145 }
+				]
+			},
+			"15_left_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "value": -75.39992 },
+					{ "time": 1, "value": -74.09144 }
+				]
+			},
+			"16_right_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.16666667, "value": 2.059326 },
+					{ "time": 0.5, "value": 27.726196 }
+				]
+			},
+			"17_right_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "value": -81.87438 },
+					{ "time": 1, "value": -44.25614 }
+				]
+			},
+			"18_purple_black_energy_sword": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": 49.19024 }
+				]
+			},
+			"19_upper_left_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.16666667, "value": 22.55367 },
+					{ "time": 0.6666667, "value": -48.16166 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.16666667, "x": -367.7214, "y": 148.58676 },
+					{ "time": 0.6666667, "x": -869.506, "y": -635.1328 }
+				]
+			},
+			"20_upper_right_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.16666667, "value": -12.465256 },
+					{ "time": 0.6666667, "value": 63.00716 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.16666667, "x": 355.5164, "y": 163.27423 },
+					{ "time": 0.6666667, "x": 859.0155, "y": -668.4707 }
+				]
+			},
+			"躯干": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": 4.765084 },
+					{ "time": 0.16666667 }
+				],
+				"translate": [
+					{ "time": 0.5 },
+					{ "time": 1.5, "x": 0.4299774, "y": 1.385315 }
+				]
+			},
+			"躯干2": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": -3.13707 },
+					{ "time": 1.5 }
+				]
+			},
+			"躯干3": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": -11.267685 },
+					{ "time": 1.5 }
+				]
+			},
+			"躯干4": {
+				"rotate": [
+					{},
+					{ "time": 0.06666667, "value": -9.971054 },
+					{ "time": 1.5 }
+				]
+			},
+			"髋": {
+				"rotate": [
+					{},
+					{ "time": 0.16666667, "value": -5.992065 },
+					{ "time": 0.5, "value": -17.976196 },
+					{ "time": 0.9333333, "value": -68.06452 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.16666667, "x": 1.6296673, "y": -6.192688 },
+					{ "time": 0.5, "x": 52.00336, "y": -197.61264 },
+					{ "time": 0.9333333, "x": 20.506475, "y": -242.349 }
+				]
+			}
+		}
+	},
+	"hurt": {
+		"slots": {
+			"01_head_scalp_base": {
+				"attachment": [
+					{ "time": 0.06666667, "name": "head_hurt" },
+					{ "time": 0.3333333, "name": "_discarded_hair/01_head_scalp_base" }
+				]
+			},
+			"slash_effect_purple": {
+				"attachment": [
+					{}
+				]
+			}
+		},
+		"bones": {
+			"01_head_scalp_base": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -0.3350525 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"03_hair_front_bangs": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -2.9854126 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"05_waist_pelvis_armor": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": 0.2193389 },
+					{ "time": 0.3333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.13333334, "y": 1 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"07_left_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -5.648514 },
+					{ "time": 0.4 }
+				]
+			},
+			"08_left_forearm": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -4.006897 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"10_right_shoulder_armor": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -1.999939 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"11_right_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": 2.536507 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"12_right_forearm": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": 2.1107864 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"14_left_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": 1.08049 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"15_left_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -3.109421 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"16_right_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -1.55307 },
+					{ "time": 0.3333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.13333334, "y": 3 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"17_right_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -1.6697865 },
+					{ "time": 0.3333333 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.13333334, "y": 5.762268 },
+					{ "time": 0.23333333, "y": 3.7552505 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"19_upper_left_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -102.33182 },
+					{ "time": 0.3333333, "value": 0.029777527 },
+					{ "time": 1, "value": 0.08934784 }
+				]
+			},
+			"20_upper_right_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": 198.01663 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"_v5_head(1)": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -4.614944 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"躯干": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -0.8445205 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"躯干2": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -2.991226 },
+					{ "time": 0.3333333 }
+				]
+			},
+			"躯干3": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -12.2706 },
+					{ "time": 0.3333333 },
+					{ "time": 0.4 },
+					{ "time": 1 }
+				]
+			},
+			"躯干4": {
+				"rotate": [
+					{},
+					{ "time": 0.13333334, "value": -10.07286 },
+					{ "time": 0.3333333 }
+				]
+			}
+		}
+	},
+	"idle_loop": {
+		"slots": {
+			"01_head_scalp_base": {
+				"attachment": [
+					{ "time": 1, "name": "head_closed_gpt" },
+					{ "time": 1.5, "name": "_discarded_hair/01_head_scalp_base" }
+				]
+			},
+			"slash_effect_purple": {
+				"attachment": [
+					{}
+				]
+			}
+		},
+		"bones": {
+			"01_head_scalp_base": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": 1.999998 },
+					{ "time": 2 }
+				]
+			},
+			"03_hair_front_bangs": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -4.715103 },
+					{ "time": 2 }
+				]
+			},
+			"07_left_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "value": -0.2529144 },
+					{ "time": 1, "value": -1.7630615 },
+					{ "time": 2 }
+				]
+			},
+			"10_right_shoulder_armor": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "value": 0.3896637 },
+					{ "time": 1.0666667, "value": 0.5764618 },
+					{ "time": 2 }
+				]
+			},
+			"11_right_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.5, "value": 0.2492399 },
+					{ "time": 1, "value": 0.9237957 },
+					{ "time": 2 }
+				]
+			},
+			"19_upper_left_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -6 },
+					{ "time": 2 }
+				],
+				"translate": [
+					{},
+					{ "time": 1, "y": 12 },
+					{ "time": 2 }
+				]
+			},
+			"20_upper_right_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": 6.999988 },
+					{ "time": 2 }
+				],
+				"translate": [
+					{},
+					{ "time": 1, "y": 6 },
+					{ "time": 2 }
+				]
+			},
+			"_v5_head(1)": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -4.585487 },
+					{ "time": 2 }
+				]
+			},
+			"躯干": {
+				"translate": [
+					{},
+					{ "time": 1, "x": 3.9128075, "y": 0.027729034 },
+					{ "time": 2 }
+				]
+			},
+			"躯干2": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -4.973556 },
+					{ "time": 2 }
+				]
+			},
+			"躯干3": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -11.05371 },
+					{ "time": 2 }
+				]
+			},
+			"躯干4": {
+				"rotate": [
+					{},
+					{ "time": 1, "value": -10.791367 },
+					{ "time": 2 }
+				]
+			}
+		}
+	},
+	"skill": {
+		"slots": {
+			"slash_effect_purple": {
+				"attachment": [
+					{}
+				]
+			}
+		},
+		"bones": {
+			"01_head_scalp_base": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": 2.2388306 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"03_hair_front_bangs": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -3.116882 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"06_left_shoulder_armor": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": 1.1639242 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"07_left_upper_arm": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": 58.10501 },
+					{ "time": 0.7, "value": 48.88908 },
+					{ "time": 1.3333334 }
+				],
+				"shear": [
+					{},
+					{ "time": 0.6666667, "x": 2, "y": -2 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"08_left_forearm": {
+				"rotate": [
+					{},
+					{ "time": 0.7, "value": 9.152563 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"09_left_hand": {
+				"rotate": [
+					{},
+					{ "time": 0.7, "value": 10.408995 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"14_left_thigh": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": 1.340561 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"15_left_lower_leg_and_boot": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -1.4970016 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"19_upper_left_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -91.16636 },
+					{ "time": 1.3333334 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.6666667, "x": 689.4042, "y": -108.37836 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"20_upper_right_floating_part": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": 35.75708 },
+					{ "time": 1.3333334 }
+				],
+				"translate": [
+					{},
+					{ "time": 0.6666667, "x": 638.8377, "y": -27.078186 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"_v5_head(1)": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -5.74649 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"躯干": {
+				"translate": [
+					{},
+					{ "time": 0.6666667, "x": 2.956261, "y": -0.4864292 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"躯干2": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -3.761444 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"躯干3": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -9.027588 },
+					{ "time": 1.3333334 }
+				]
+			},
+			"躯干4": {
+				"rotate": [
+					{},
+					{ "time": 0.6666667, "value": -4.206497 },
+					{ "time": 1.3333334, "value": -0.1486664 }
+				]
+			}
+		}
+	}
+}
+}

@@ -1,0 +1,16 @@
+{
+  "AURORAMOD-AURORA.title": "Aurora",
+  "AURORAMOD-AURORA.titleObject": "Aurora",
+  "AURORAMOD-AURORA.description": "A war machine whose shutdown order never came.\nRuns her core hot, trading Overload for a heavier blade.",
+  "AURORAMOD-AURORA.pronounObject": "her",
+  "AURORAMOD-AURORA.possessiveAdjective": "her",
+  "AURORAMOD-AURORA.pronounPossessive": "hers",
+  "AURORAMOD-AURORA.pronounSubject": "she",
+  "AURORAMOD-AURORA.cardsModifierTitle": "Aurora Cards",
+  "AURORAMOD-AURORA.cardsModifierDescription": "Aurora cards can appear in rewards and shops.",
+  "AURORAMOD-AURORA.aromaPrinciple": "[sine][purple]...no shutdown order received... continue... [/purple][/sine]",
+  "AURORAMOD-AURORA.eventDeathPrevention": "The war is not over.",
+  "AURORAMOD-AURORA.banter.alive.endTurnPing": "Still operational.",
+  "AURORAMOD-AURORA.banter.dead.endTurnPing": "...systems failing.",
+  "AURORAMOD-AURORA.goldMonologue": "[sine]This gold... enough for a new set of plating.[/sine]"
+}
