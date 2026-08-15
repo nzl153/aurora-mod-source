@@ -5,7 +5,7 @@
 
 ![选人界面](docs/character-select.png)
 
-> 非官方粉丝作品，与 Mega Crit 无关。需要正版游戏本体。
+> 非官方粉丝作品，与 Mega Crit 无关。需要游戏正式版本体。
 
 **[Steam 创意工坊页面](https://steamcommunity.com/sharedfiles/filedetails/?id=3772711396)**
 
