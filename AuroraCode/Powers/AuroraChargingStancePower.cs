@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AuroraMod.AuroraCode.Helpers;
 using MegaCrit.Sts2.Core.Combat;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
@@ -12,86 +12,61 @@ using MegaCrit.Sts2.Core.Models;
 namespace AuroraMod.AuroraCode.Powers;
 
 /// <summary>
-/// #34 蓄能架式 Power—— 可见能力 Power。回合结束时若本回合未打出攻击牌：
-/// 获得 <see cref="Amount"/>（=每回合基础剑势，多张合并累加）点剑势并积 <c>HeatGain</c> 点热量；
-/// 若积热结算后处于温区，额外获得 <c>WarmBonus</c> 点剑势。
-/// 设计偏离：旧稿积 2 热，延迟过热下龟缩流被动积热是真实时钟，降为 +1（HeatGain 固定值，多张不叠）。
-/// 时序挂普通 <see cref="AfterSideTurnEnd"/> 阶段，早于 HeatDissipationCore 的 AfterSideTurnEndLate 过热结算——
-/// 若本次积热把你推过 10，当回合末就会结算过热，这是延迟过热的既定行为，不规避。
+/// 过载引擎 Power（卡面见 <see cref="Cards.Uncommon.AuroraChargingStance"/>）。
+/// 本场战斗中，你每打出 1 张攻击牌就积 <see cref="HeatPerAttack"/> 点热量（每层 +1，多张叠加）。
+///
+/// <b>⚠ 类名/文件名/图标名保持 ChargingStance 不变，这是刻意的</b>：卡牌 ID 与本地化 key 都由类名派生
+/// （<c>AURORAMOD-AURORA_CHARGING_STANCE</c>）。Aurora 已发布，改名会让所有进行中的存档找不到这张牌。
+/// 内部整洁让位于存档兼容——本卡由旧「蓄能架式」原地重做而来（旧效果：本回合未打出攻击牌则给剑势，
+/// 条件与角色主业对立，实战几乎不触发）。
+///
+/// 计次口径沿用 <see cref="ChainPower.AfterCardPlayed"/> 的既定守卫：只认玩家<b>手动打出</b>的牌
+/// （<c>!IsAutoPlay</c>）且同一次打出的多段额外结算只计一次（<c>IsFirstInSeries</c>）。
+/// 复制/回响/自动打出不重复积热——否则复制流会把过热推成不可控的雪崩。
 /// </summary>
 public sealed class AuroraChargingStancePower : AuroraPower
 {
+    /// <summary>每层每张攻击牌积的热量。</summary>
+    public const int HeatPerAttack = 1;
+
     public override PowerInstanceType InstanceType => PowerInstanceType.None;
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
     protected override bool IsVisibleInternal => true;
     protected override string IconName => "charging_stance";
 
-    // HeatGain/WarmBonus 全 mod 恒为常量 1，唯一升级路径只改 MomentumGain(=Amount)、不碰这两者（见 AuroraChargingStance.OnUpgrade）。
-    // 故它们是常量权威、DV 仅作展示；DV 默认值(1/1)=常量，重连后即便 DV 丢失回落默认仍正确。无需搬 Amount。
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("HeatGain", 1m),
-        new DynamicVar("WarmBonus", 1m),
+        new DynamicVar("HeatPerAttack", HeatPerAttack),
     ];
 
-    private int HeatGain => (int)DynamicVars["HeatGain"].BaseValue;
-    private int WarmBonus => (int)DynamicVars["WarmBonus"].BaseValue;
-
-    /// <summary>叠加每回合基础剑势(=Amount)；温区额外剑势/积热为固定触发参数（多张覆盖为同值，不随层数叠加）。</summary>
-    public static async Task ApplyAsync(PlayerChoiceContext ctx, Creature creature, int momentum, int warmBonus, int heatGain, CardModel source)
+    /// <summary>叠加层数：每层使每张攻击牌多积 1 点热。</summary>
+    public static async Task ApplyAsync(PlayerChoiceContext ctx, Creature creature, int stacks, CardModel source)
     {
-        await AuroraPowerCmd.Apply<AuroraChargingStancePower>(ctx, creature, momentum, creature, source, silent: true);
-        var power = creature.GetPower<AuroraChargingStancePower>();
-        power?.SetTriggerParams(warmBonus, heatGain);
+        await AuroraPowerCmd.Apply<AuroraChargingStancePower>(ctx, creature, stacks, creature, source, silent: true);
     }
 
-    private void SetTriggerParams(int warmBonus, int heatGain)
+    public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        AssertMutable();
-        DynamicVars["WarmBonus"].BaseValue = warmBonus;
-        DynamicVars["HeatGain"].BaseValue = heatGain;
-        InvokeDisplayAmountChanged();
-    }
-
-    public override async Task AfterSideTurnEnd(PlayerChoiceContext choiceContext, CombatSide side, IEnumerable<Creature> participants)
-    {
-        if (side != Owner.Side || Amount <= 0)
+        if (Amount <= 0 || !CombatManager.Instance.IsInProgress)
         {
             return;
         }
 
-        // 只在自己确实参与本次回合结算时触发（对齐 AttackModulePower / HeatDissipationCore）。
-        if (participants?.Contains(Owner) != true)
+        // 与连锁同一套守卫：必须是本人手动打出、且是这次打出的第一段结算。
+        if (cardPlay?.Card?.Owner != Owner.Player || cardPlay.IsAutoPlay || !cardPlay.IsFirstInSeries)
         {
             return;
         }
 
-        // 条件：本回合未打出攻击牌。
-        if (AuroraAttackTurnTracker.HasPlayedAttackThisTurn(Owner))
-        {
-            return;
-        }
-
-        // 与 HeatDissipationCore 对齐，战斗已结束则不再产势/积热。
-        if (!CombatManager.Instance.IsInProgress)
+        if (cardPlay.Card.Type != CardType.Attack)
         {
             return;
         }
 
         Flash();
 
-        // 顺序：先给基础剑势 → 积热 → 按结算后区段补温区剑势。
-        await AuroraMomentumService.GainAsync(choiceContext, Owner, (int)Amount, null);
-
-        if (HeatGain > 0)
-        {
-            await HeatPower.AddHeatAsync(choiceContext, Owner, HeatGain, null);
-        }
-
-        if (WarmBonus > 0 && HeatPower.GetZone(Owner) == HeatPower.HeatZone.Warm)
-        {
-            await AuroraMomentumService.GainAsync(choiceContext, Owner, WarmBonus, null);
-        }
+        // 积热走统一入口：越线锁定待结算过热、换区通知、热量柱刷新全都自动接上。
+        await HeatPower.AddHeatAsync(choiceContext, Owner, (int)Amount * HeatPerAttack, null);
     }
 }

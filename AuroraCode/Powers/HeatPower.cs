@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuroraMod.AuroraCode.Helpers;
+using AuroraMod.AuroraCode.Visuals;
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
@@ -143,6 +144,12 @@ public sealed class HeatPower : AuroraPower
         {
             return;
         }
+
+        // 热量柱（纯表现）：唯一的真实变更汇聚点，在此火发一次平滑滑动。
+        // fire-and-forget、下一帧执行，绝不进结算链。注意不要改成在 AfterApplied 里 Snap——
+        // SetHeatAsync 每次都会重建 Power，那样会先跳到新值，滑动动画就没了。
+        AuroraHeatBarBridge.RequestAnimate(creature, after,
+            discharge: reason == HeatChangeReason.OverheatClear);
 
         var info = new HeatChangeInfo(before, after, ZoneOf(before), ZoneOf(after), reason, cardSource);
         foreach (var power in creature.Powers.ToList())
@@ -310,6 +317,9 @@ public sealed class HeatPower : AuroraPower
         {
             await AuroraLockedOverheatDamagePower.SetAtLeastAsync(ctx, creature, RawProjectedOverheatDamage(creature));
         }
+
+        // 重连/存档恢复：热量柱无过渡对齐当前值，别播一段假的爬升。
+        AuroraHeatBarBridge.RequestSnap(creature);
     }
 
     /// <summary>
