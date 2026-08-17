@@ -68,7 +68,7 @@ public sealed class AttackModulePower : AuroraModulePower
         // 攻击模块是锁定消费的唯一 Unpowered 例外：用作用域标记这段伤害可消费锁定并吃 +2（§9 / 架构 §9.1）。
         using (Patches.AuroraLockDamagePatch.ModuleDamageScope.Enter())
         {
-            await CreatureCmd.Damage(choiceContext, target, Value, ValueProp.Unpowered, Owner, null);
+            await CreatureCmd.Damage(choiceContext, target, Value, ValueProp.Unpowered, Owner);
         }
     }
 }

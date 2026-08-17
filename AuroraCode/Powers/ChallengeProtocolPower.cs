@@ -38,7 +38,12 @@ public sealed class ChallengeProtocolPower : AuroraPower
     /// 敌人(Owner)对本实例施加者(Applier)造成 powered attack 时，按层数放大：×(1 + 0.10×层数)。
     /// 乘法阶段生效（§8.2 公式）；非本施加者承受、Unpowered、非攻击一律 ×1。
     /// </summary>
+#if STS2_BETA
+    // beta v0.111.0：该钩子上移到 AbstractModel，并在末尾新增 CardPlay?。方法体两分支完全一致。
+    public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay cardPlay)
+#else
     public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource)
+#endif
     {
         // dealer==Owner：确实是携带本 Buff 的敌人在打；target==Applier：只提高施加者本人承受的那份
         //（重定向给队友时 target≠Applier → ×1，增伤不跟随）。

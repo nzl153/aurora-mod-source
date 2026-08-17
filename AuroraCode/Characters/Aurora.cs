@@ -86,7 +86,12 @@ public class Aurora : PlaceholderCharacterModel
     /// 基类把 Cast/PowerUp 映到 AnimState("cast")，但奥萝拉 Spine 只有 skill。
     /// 其余触发与基类一致；不改 Spine 文件。
     /// </summary>
+#if STS2_BETA
+    // beta v0.111.0：CharacterModel.GenerateAnimator 新增 Creature 参数。方法体两分支完全一致。
+    public override CreatureAnimator GenerateAnimator(MegaSprite controller, MegaCrit.Sts2.Core.Entities.Creatures.Creature creature)
+#else
     public override CreatureAnimator GenerateAnimator(MegaSprite controller)
+#endif
     {
         var idle = new AnimState("idle_loop", isLooping: true);
         var skill = new AnimState("skill");

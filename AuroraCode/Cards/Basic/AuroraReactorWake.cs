@@ -58,5 +58,11 @@ public class AuroraReactorWake() : AuroraCard(0, CardType.Skill, CardRarity.Basi
         DynamicVars.Block.UpgradeValueBy(3m);
     }
 
+#if STS2_BETA
+    // beta v0.111.0：GetResultPileTypeForCardPlay 换成返回 CardLocation 的 GetResultLocationForCardPlay。
+    protected override CardLocation GetResultLocationForCardPlay() =>
+        new(Owner, PileType.Exhaust, CardPilePosition.Bottom);
+#else
     protected override PileType GetResultPileTypeForCardPlay() => PileType.Exhaust;
+#endif
 }

@@ -56,7 +56,13 @@ internal static class AuroraSelfHarm
         var before = creature.CurrentHp;
         using (SelfDamageScope.Enter())
         {
+#if STS2_BETA
+            // beta v0.111.0：删掉了 (ctx,target,amount,props,dealer,cardSource) 这个 6 参数重载，
+            // 改为末尾带 CardPlay? 的 7 参数版。自伤没有对应的一次打出，传 null（与正式版行为一致）。
+            await CreatureCmd.Damage(ctx, creature, amount, props, creature, cardSource, null);
+#else
             await CreatureCmd.Damage(ctx, creature, amount, props, creature, cardSource);
+#endif
         }
 
         var lost = before - creature.CurrentHp;

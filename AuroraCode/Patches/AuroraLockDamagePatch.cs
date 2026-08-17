@@ -74,6 +74,21 @@ public static class AuroraLockDamagePatch
     public static class ModifyDamageInternalPatch
     {
         // 只在包含乘法阶段的完整合成上追加（All = 加法|乘法）；纯加法子调用不追加，避免错位。
+#if STS2_BETA
+        // beta v0.111.0：ModifyDamageInternal 的 combatState 由 CombatState 改成接口 ICombatState，
+        // 并新增了 cardPlay。Harmony 按「参数名 + 类型」匹配，类型对不上会在启动时抛 HarmonyException，
+        // 而 PatchAll 是一炸全停（整个 mod 的补丁会全部失效）——所以这里必须跟着改，不能只加参数。
+        public static void Postfix(
+            ref decimal __result,
+            IRunState runState,
+            MegaCrit.Sts2.Core.Combat.ICombatState combatState,
+            Creature target,
+            Creature dealer,
+            ValueProp props,
+            CardModel cardSource,
+            MegaCrit.Sts2.Core.Entities.Cards.CardPlay cardPlay,
+            ModifyDamageHookType modifyDamageHookType)
+#else
         public static void Postfix(
             ref decimal __result,
             IRunState runState,
@@ -83,6 +98,7 @@ public static class AuroraLockDamagePatch
             ValueProp props,
             CardModel cardSource,
             ModifyDamageHookType modifyDamageHookType)
+#endif
         {
             try
             {
@@ -102,7 +118,11 @@ public static class AuroraLockDamagePatch
                 var cap = decimal.MaxValue;
                 foreach (var model in runState.IterateHookListeners(combatState))
                 {
+#if STS2_BETA
+                    var c = model.ModifyDamageCap(target, props, dealer, cardSource, cardPlay);
+#else
                     var c = model.ModifyDamageCap(target, props, dealer, cardSource);
+#endif
                     if (c < cap)
                     {
                         cap = c;

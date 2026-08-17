@@ -68,7 +68,12 @@ public sealed class MomentumPower : AuroraPower
     /// 与原版力量同一钩子：仅本人打出的 powered attack 生效，每段各加一次，加在乘区之前。
     /// 模块伤害为 Unpowered，天然不吃（防双轴指数）。
     /// </summary>
+#if STS2_BETA
+    // beta v0.111.0：该钩子上移到 AbstractModel，并在末尾新增 CardPlay?。方法体两分支完全一致。
+    public override decimal ModifyDamageAdditive(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay cardPlay)
+#else
     public override decimal ModifyDamageAdditive(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource)
+#endif
     {
         if (Owner != dealer || !props.IsPoweredAttack())
         {

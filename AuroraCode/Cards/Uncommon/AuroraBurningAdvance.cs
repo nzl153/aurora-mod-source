@@ -17,7 +17,7 @@ namespace AuroraMod.AuroraCode.Cards.Uncommon;
 /// 29 燃烧进军 / Burning Advance（罕见，A 过热暴走）。造成 8 伤害,积 1 热;本回合第一次由此换区时,本牌返回手牌、
 /// 本回合费用变 0;再次打出后消耗。升级:伤害 8→11。
 /// 因固定 +1 热,普通换区当且仅当打出前热量恰为 3(冷→温)或 6(温→过载);9→过热归零不算换区。
-/// 返手判定放在 <see cref="GetResultPileTypeForCardPlay"/>(在 OnPlay 之前按打出前热量预判,可精确预知换区):
+/// 返手判定放在 <see cref="TryResolveReturnToHand"/>(在 OnPlay 之前按打出前热量预判,可精确预知换区):
 /// 已武装(ExhaustOnNextPlay)→ 交基类走消耗;否则门闩未用且热量==3/6 → 返回手牌;否则默认弃牌。
 /// OnPlay 每次真实结算:1 段攻击 + 积 1 热;仅 IsFirstInSeries 且本次去向被判为手牌时武装
 /// (置门闩、ExhaustOnNextPlay、SetThisTurn(0))。用 SetThisTurn 而非 …OrUntilPlayed:后者带 WhenPlayed 标志
@@ -57,7 +57,7 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
         // 2. 积 1 热(战斗结束/无效时 AddHeatAsync 内部自守卫)。
         await HeatPower.AddHeatAsync(choiceContext, creature, 1, this);
 
-        // 3. 武装:仅首次结算,且本次去向已被 GetResultPileTypeForCardPlay 判为返回手牌。
+        // 3. 武装:仅首次结算,且本次去向已被 TryResolveReturnToHand 判为返回手牌。
         if (cardPlay.IsFirstInSeries && cardPlay.ResultPile == PileType.Hand)
         {
             creature.GetPower<AuroraBurningAdvanceTurnPower>()?.MarkReturnUsed();
@@ -79,12 +79,18 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
         ExhaustOnNextPlay = false;
     }
 
-    protected override PileType GetResultPileTypeForCardPlay()
+    /// <summary>
+    /// 判定本次打出后是否应返回手牌。返回 null = 交给基类决定。
+    /// <b>不要改成先调用基类再比较</b>：基类实现带副作用（命中消耗分支时会把 ExhaustOnNextPlay 清掉），
+    /// 提前调用会在"本应返回手牌"的路径上误清武装标志。
+    /// 抽出来是为了让正式版与 beta 两个签名共用同一份判定逻辑，避免双分支漂移。
+    /// </summary>
+    private PileType? TryResolveReturnToHand()
     {
-        // 已武装(第二次打出)或本身带消耗 → 交基类(返回 Exhaust 并清 ExhaustOnNextPlay)。
+        // 已武装(第二次打出)或本身带消耗 → 交基类。
         if (ExhaustOnNextPlay || Keywords.Contains(CardKeyword.Exhaust))
         {
-            return base.GetResultPileTypeForCardPlay();
+            return null;
         }
 
         // 门闩未用且打出前热量恰在边界(3 或 6)→ +1 必然换区 → 返回手牌。
@@ -98,8 +104,23 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
             }
         }
 
-        return base.GetResultPileTypeForCardPlay();
+        return null;
     }
+
+#if STS2_BETA
+    protected override CardLocation GetResultLocationForCardPlay()
+    {
+        var pile = TryResolveReturnToHand();
+        return pile.HasValue
+            ? new CardLocation(Owner, pile.Value, CardPilePosition.Bottom)
+            : base.GetResultLocationForCardPlay();
+    }
+#else
+    protected override PileType GetResultPileTypeForCardPlay()
+    {
+        return TryResolveReturnToHand() ?? base.GetResultPileTypeForCardPlay();
+    }
+#endif
 
     protected override void OnUpgrade()
     {

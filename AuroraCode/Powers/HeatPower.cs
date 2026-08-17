@@ -77,7 +77,12 @@ public sealed class HeatPower : AuroraPower
     }
 
     /// <summary>过载区：作为攻击方的强力攻击最终伤害 ×1.25。模块伤害走 Unpowered，不是 powered attack，自动排除。</summary>
+#if STS2_BETA
+    // beta v0.111.0：该钩子上移到 AbstractModel，并在末尾新增 CardPlay?。方法体两分支完全一致。
+    public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource, MegaCrit.Sts2.Core.Entities.Cards.CardPlay cardPlay)
+#else
     public override decimal ModifyDamageMultiplicative(Creature target, decimal amount, ValueProp props, Creature dealer, CardModel cardSource)
+#endif
     {
         if (dealer != Owner || amount <= 0 || !props.IsPoweredAttack() || Zone != HeatZone.Overload)
         {

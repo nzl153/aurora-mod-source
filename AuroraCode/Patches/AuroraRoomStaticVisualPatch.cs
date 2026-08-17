@@ -181,7 +181,7 @@ public static class AuroraRestSiteStaticVisualPatch
 
     private static void ReplaceVisual(NRestSiteCharacter character, Texture2D texture)
     {
-        var root = character.GetNodeOrNull<Control>("ControlRoot");
+        var root = AuroraRestSitePatch.ResolveControlRoot(character);
         if (root == null)
         {
             return;

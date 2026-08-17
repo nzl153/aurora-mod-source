@@ -54,7 +54,15 @@ public sealed class AuroraRedundantPlatingPower : AuroraPower
         var lose = block - (block / 2);   // 保留 floor(block/2)
         if (lose > 0)
         {
+#if STS2_BETA
+            // beta v0.111.0：LoseBlock 只剩 (ctx, target, amount, remover) 一个重载。
+            // 本方法拿不到 PlayerChoiceContext，照抄游戏本体自己的做法：临时构造一个阻塞上下文。
+            await CreatureCmd.LoseBlock(
+                new MegaCrit.Sts2.Core.GameActions.Multiplayer.BlockingPlayerChoiceContext(),
+                creature, lose, null);
+#else
             await CreatureCmd.LoseBlock(creature, lose);
+#endif
         }
 
         Flash();

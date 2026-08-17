@@ -30,7 +30,7 @@ public static class AuroraRestSitePatch
                 return;
             }
 
-            var root = __instance.GetNodeOrNull<Control>("ControlRoot");
+            var root = ResolveControlRoot(__instance);
             if (root != null)
             {
                 root.Position += Offset;
@@ -40,5 +40,23 @@ public static class AuroraRestSitePatch
         {
             // 纯表现：绝不因它中断。
         }
+    }
+
+    /// <summary>
+    /// 取 NRestSiteCharacter 的 ControlRoot。先按节点名找，找不到再反射读私有字段 _controlRoot。
+    ///
+    /// <b>为什么要有兜底</b>：这类补丁全程 try/catch，取不到节点时静默返回——不抛异常也不打日志，
+    /// 表现是"效果悄悄没了"，比崩溃难查得多。beta v0.111.0 上卡框就是这么坏的（节点改名，
+    /// FindChild("Frame") 失效）。反射读字段不依赖节点命名，两个分支都成立。
+    /// </summary>
+    internal static Control ResolveControlRoot(NRestSiteCharacter character)
+    {
+        if (character == null)
+        {
+            return null;
+        }
+
+        return character.GetNodeOrNull<Control>("ControlRoot")
+               ?? AccessTools.Field(typeof(NRestSiteCharacter), "_controlRoot")?.GetValue(character) as Control;
     }
 }

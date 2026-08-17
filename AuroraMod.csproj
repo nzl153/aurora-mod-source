@@ -2,11 +2,15 @@
   <PropertyGroup>
     <!-- 本机无默认路径时请设环境变量 STS2_GAME_DIR，或构建 -p:Sts2GameRoot="你的游戏目录" -->
     <Sts2GameRoot Condition="'$(Sts2GameRoot)'==''">$([System.Environment]::GetEnvironmentVariable('STS2_GAME_DIR'))</Sts2GameRoot>
-    <Sts2GameRoot Condition="'$(Sts2GameRoot)'==''">C:\Program Files (x86)\Steam\steamapps\common\Slay the Spire 2</Sts2GameRoot>
+    <Sts2GameRoot Condition="'$(Sts2GameRoot)'==''">D:\steam2\steamapps\common\Slay the Spire 2</Sts2GameRoot>
     <Sts2DataDir>$(Sts2GameRoot)\data_sts2_windows_x86_64</Sts2DataDir>
     <Sts2WorkshopContentDir Condition="'$(Sts2WorkshopContentDir)'==''">$(Sts2GameRoot)\..\..\workshop\content\2868840</Sts2WorkshopContentDir>
     <BaseLibDll Condition="'$(BaseLibDll)'=='' And Exists('$(Sts2GameRoot)\mods\BaseLib.3.3.0\BaseLib.dll')">$(Sts2GameRoot)\mods\BaseLib.3.3.0\BaseLib.dll</BaseLibDll>
     <BaseLibDll Condition="'$(BaseLibDll)'=='' And Exists('$(Sts2WorkshopContentDir)\3737335127\BaseLib\BaseLib.dll')">$(Sts2WorkshopContentDir)\3737335127\BaseLib\BaseLib.dll</BaseLibDll>
+    <!-- beta 分支构建开关：dotnet build -p:Sts2Beta=true 出 beta 版 dll，不传就是正式版。
+         唯一差异全部收在源码里的 #if STS2_BETA 内，绝不复制源码目录（复制必漂移）。 -->
+    <Sts2Beta Condition="'$(Sts2Beta)'==''">false</Sts2Beta>
+    <DefineConstants Condition="'$(Sts2Beta)'=='true'">$(DefineConstants);STS2_BETA</DefineConstants>
     <Version>0.1.0</Version>
     <AssemblyVersion>0.1.0.0</AssemblyVersion>
     <FileVersion>0.1.0.0</FileVersion>

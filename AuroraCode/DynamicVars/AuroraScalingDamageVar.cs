@@ -89,8 +89,15 @@ public sealed class AuroraScalingDamageVar : DamageVar
 
         if (runGlobalHooks)
         {
+#if STS2_BETA
+            // beta v0.111.0：Hook.ModifyDamage 在 cardSource 之后插入了 CardPlay?。
+            // 这里是牌面数值预览，没有真实的一次打出，传 null 与本体预览路径一致。
+            num = Hook.ModifyDamage(card.Owner.RunState, card.CombatState, target, card.Owner.Creature,
+                effective, Props, card, null, ModifyDamageHookType.All, previewMode, out IEnumerable<AbstractModel> _);
+#else
             num = Hook.ModifyDamage(card.Owner.RunState, card.CombatState, target, card.Owner.Creature,
                 effective, Props, card, ModifyDamageHookType.All, previewMode, out IEnumerable<AbstractModel> _);
+#endif
         }
 
         PreviewValue = num;

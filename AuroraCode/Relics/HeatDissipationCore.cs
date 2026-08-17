@@ -109,7 +109,7 @@ public class HeatDissipationCore : AuroraRelic
                     var warmTarget = PickTarget(creature);
                     if (warmTarget != null)
                     {
-                        await CreatureCmd.Damage(choiceContext, warmTarget, WarmDamage, ValueProp.Unpowered, creature, null);
+                        await CreatureCmd.Damage(choiceContext, warmTarget, WarmDamage, ValueProp.Unpowered, creature);
                     }
                 }
 
@@ -122,7 +122,7 @@ public class HeatDissipationCore : AuroraRelic
                 if (target != null)
                 {
                     Flash();
-                    await CreatureCmd.Damage(choiceContext, target, OverloadDamage, ValueProp.Unpowered, creature, null);
+                    await CreatureCmd.Damage(choiceContext, target, OverloadDamage, ValueProp.Unpowered, creature);
                 }
 
                 break;

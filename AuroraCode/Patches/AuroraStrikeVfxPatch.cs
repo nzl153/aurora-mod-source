@@ -28,6 +28,22 @@ namespace AuroraMod.AuroraCode.Patches;
 [HarmonyPatch]
 public static class AuroraStrikeVfxPatch
 {
+#if STS2_BETA
+    // beta v0.111.0：CreatureCmd.Damage 的 (…, Creature dealer, CardModel cardSource) 这个重载被删了，
+    // 换成末尾带 CardPlay? 的版本。attribute 里的类型数组不参与重载解析，所以编译期发现不了——
+    // 只有启动时 Harmony 抛 Undefined target method，且 PatchAll 一炸全停，整个 mod 的补丁一起失效。
+    [HarmonyPatch(typeof(CreatureCmd), nameof(CreatureCmd.Damage), new[]
+    {
+        typeof(PlayerChoiceContext),
+        typeof(IEnumerable<Creature>),
+        typeof(decimal),
+        typeof(ValueProp),
+        typeof(Creature),
+        typeof(CardModel),
+        typeof(MegaCrit.Sts2.Core.Entities.Cards.CardPlay),
+    })]
+    [HarmonyPostfix]
+#else
     [HarmonyPatch(typeof(CreatureCmd), nameof(CreatureCmd.Damage), new[]
     {
         typeof(PlayerChoiceContext),
@@ -38,6 +54,7 @@ public static class AuroraStrikeVfxPatch
         typeof(CardModel),
     })]
     [HarmonyPostfix]
+#endif
     public static void DamagePostfix(IEnumerable<Creature> targets, Creature dealer, CardModel cardSource)
     {
         try
