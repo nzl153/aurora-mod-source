@@ -5,7 +5,7 @@
 
 ![选人界面](docs/character-select.png)
 
-> 非官方粉丝作品，与 Mega Crit 无关。需要游戏正式版本体。
+> 非官方粉丝作品，与 Mega Crit 无关。需要游戏本体。
 
 **[Steam 创意工坊页面](https://steamcommunity.com/sharedfiles/filedetails/?id=3772711396)**
 
@@ -54,10 +54,18 @@
 
 依赖：
 
-- 《杀戮尖塔 2》 `v0.107.1` 或更高
+- 《杀戮尖塔 2》 `v0.107.1` 或更高（正式版与 beta 分支均可）
 - [BaseLib](https://steamcommunity.com/sharedfiles/filedetails/?id=3737335127) `v3.3.0` 或更高
 
-> 目前只适配正式版，不适配 beta 分支。原因见 [docs/DESIGN.md](docs/DESIGN.md) §8。
+> **正式版与 beta 分支都已适配**（2026-08-17，beta `v0.111.0`）。
+> 两个分支共用同一份源码，靠条件编译产出两份 dll，Steam 按玩家所在分支自动派发：
+>
+> ```bash
+> dotnet build -p:Sts2Beta=true   # beta 分支
+> dotnet build                     # 正式版（默认）
+> ```
+>
+> API 差异清单与踩过的坑见 [docs/DESIGN.md](docs/DESIGN.md) §8。
 
 ---
 

@@ -311,11 +311,66 @@ STS2_GAME_DIR="<游戏安装目录>" dotnet build AuroraMod.csproj -c Debug
 
 ### beta 分支
 
-**当前不适配，这是有意的决定。**
+**正式版与 beta 均已适配**（2026-08-17，beta `v0.111.0`）。
+**一份源码 + 条件编译出两份 dll**，不复制源码目录——复制必然漂移（改了一边忘了另一边，这类 bug 极难查）。
 
-- 那 2 个 CS0618 是 **BaseLib 发的**，不是游戏本体。正式版上工作完全正常
-- 全库 35 处 `CardAttack`，33 处已是新签名，只剩 `AuroraStrike.cs` 和 `AuroraBreachingThrust.cs`
-- 真要适配时：**一份源码 + 条件编译出两个 dll**，绝不复制源码（会漂移）
+```bash
+dotnet build -p:Sts2Beta=true   # beta，定义 STS2_BETA
+dotnet build                     # 正式版（默认）
+```
+
+差异全部收在 `#if STS2_BETA` 内。发布时同一个工坊 ID 挂两份构建，
+靠 `minBranch` / `maxBranch` 让 Steam 按玩家所在分支自动派发。
+⚠️ 上传顺序：**先给正式版那份钉 `maxBranch: "public"`，再传 beta 那份**。反过来会让正式版玩家集体加载失败。
+
+#### v0.111.0 相对 v0.107.1 的 API 变更
+
+| # | 变更 |
+|---|---|
+| 1 | `CardModel.GetResultPileTypeForCardPlay()` → `GetResultLocationForCardPlay()`，返回 `CardLocation` |
+| 2 | `ModifyDamageAdditive` / `Multiplicative` / `Cap` 上移到 `AbstractModel`，末尾新增 `CardPlay?` |
+| 3 | `CharacterModel.GenerateAnimator` 新增 `Creature` 参数 |
+| 4 | `CreatureCmd.Damage` 删除 6 参数重载，改为末尾带 `CardPlay?` 的 7 参数版 |
+| 5 | `CreatureCmd.LoseBlock` 只剩 `(ctx, target, amount, remover)` |
+| 6 | `Hook.ModifyDamage` 在 `cardSource` 后插入 `CardPlay?` |
+| 7 | `Hook.ModifyDamageInternal` 的 `combatState` 由 `CombatState` 改为接口 `ICombatState` |
+
+第 4 条有个省事的地方：5 参数重载 `(ctx, target, amount, props, dealer)` **两个分支都有**，
+所以 `cardSource` 为 null 的调用直接改用它即可，不必进 `#if`。
+
+#### ⚠️ 三类「编译期发现不了」的坑
+
+这三类都是 **0 警告 0 错误编译通过、运行时才暴露**，跨版本适配时要主动排查：
+
+1. **Harmony 形参类型不匹配 → 启动即炸。**
+   如第 7 条的 `ICombatState`，补丁形参不跟着改就抛 `HarmonyException`。
+   而 `PatchAll` 是**一炸全停**：一个补丁挂不上，整个 mod 的补丁全部失效——
+   游戏照常进、角色照常选，但功能全没了，很容易被误判成"至少没崩"。
+
+2. **`[HarmonyPatch]` 里写死的参数类型数组不参与重载解析。**
+   编译期不校验，启动时报 `Undefined target method`。`AuroraStrikeVfxPatch` 就是这么炸的。
+
+3. **靠节点名找 UI → 静默失效。**
+   这类补丁通常全程 `try/catch`（纯装饰，不该打断渲染），于是走错节点**既不抛异常也不打日志**，
+   只表现为"效果看着没变"，比崩溃难查得多。卡框那次踩了三层：
+   - `FindChild("Frame", recursive)` 是深度优先按名字扫，会**撞到另一个同名节点**；
+     引擎自身用的是 `_frame = GetNode<TextureRect>("%Frame")`
+     ⇒ **以反射读私有字段为准，名字查找降级为兜底**
+   - beta 新增 `Model.FrameMaterial` 染色着色器，会盖掉自定义整图 ⇒ 置 `null`
+     （正式版该处本就是 `null`，无副作用，故不进 `#if`）
+   - beta 的 `UpdateVisuals` 会**再调一次 `UpdatePortrait()`** 把贴图刷回
+     ⇒ 补丁要挂到 `UpdatePortrait`（`Reload` 与 `UpdateVisuals` 的共同末端）
+
+   **定位方法**：这类问题别靠现象推理，直接临时打一行节点路径日志，一次定位干净。
+
+#### 复测时最容易漏的三块
+
+1. **预览路径**：`ModifyDamage*` 新增了 `CardPlay`，但浏览牌库 / 商店 / 战斗奖励 / 休息点升级时
+   `cardPlay` 是 **null**，任何一处点了 `cardPlay.X` 就是空引用崩溃。
+   测法：开局后只看牌库和商店，一张牌都不打就能测出来。
+2. **存档往返**：改动若涉及 `SavedProperty`，键名没变 ≠ 读写还通。
+   测法：叠层数 → 退主菜单 → 读档 → 看还在不在。
+3. **Harmony 启动检查**：先看日志有没有 `HarmonyException`，再进战斗。
 
 ---
 
@@ -357,4 +412,3 @@ STS2_GAME_DIR="<游戏安装目录>" dotnet build AuroraMod.csproj -c Debug
 
 - **`AuroraTouchOfOrobasUpgradePatch` 缺 null 守卫**——唯一未修的可选加固。
   `starterRelic` 为 null 时会 NRE，概率极低但后果是打断先古之民事件。想修就加一行判空
-- beta 适配（见 §8）
