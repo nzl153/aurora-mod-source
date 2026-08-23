@@ -1,0 +1,16 @@
+{
+  "AURORAMOD-AURORA.title": "Аврора",
+  "AURORAMOD-AURORA.titleObject": "Аврору",
+  "AURORAMOD-AURORA.description": "Боевая машина, так и не получившая приказ об отключении.\nРазогревает ядро, превращая Перегрузку в сокрушительные удары.",
+  "AURORAMOD-AURORA.pronounObject": "её",
+  "AURORAMOD-AURORA.possessiveAdjective": "её",
+  "AURORAMOD-AURORA.pronounPossessive": "её",
+  "AURORAMOD-AURORA.pronounSubject": "она",
+  "AURORAMOD-AURORA.cardsModifierTitle": "Карты Авроры",
+  "AURORAMOD-AURORA.cardsModifierDescription": "Карты Авроры могут появляться в наградах и магазинах.",
+  "AURORAMOD-AURORA.aromaPrinciple": "[sine][purple]...приказ об отключении не получен... продолжать... [/purple][/sine]",
+  "AURORAMOD-AURORA.eventDeathPrevention": "Война ещё не окончена.",
+  "AURORAMOD-AURORA.banter.alive.endTurnPing": "Всё ещё в строю.",
+  "AURORAMOD-AURORA.banter.dead.endTurnPing": "...системы отказывают.",
+  "AURORAMOD-AURORA.goldMonologue": "[sine]Этого золота... хватит на новый комплект брони.[/sine]"
+}

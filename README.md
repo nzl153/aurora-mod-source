@@ -39,7 +39,7 @@
 | 专属药水 | 2 |
 | 专属事件 | 3 |
 | 联机专属卡 | 2 |
-| 语言 | 简体中文 / English / 日本語 |
+| 语言 | 简体中文 / English / 日本語 / Русский |
 
 角色有完整的 Spine 骨骼动画（战斗 + 选人界面）、自定义能量球、
 自定义命中特效，以及全卡池的关键字悬停说明。
@@ -115,7 +115,7 @@ AuroraCode/          C# 逻辑
 Aurora/              Godot 资源（进 pck）
   Images/            卡面、图标、特效贴图
   Spine/             骨骼动画
-  localization/      zhs / eng / jpn
+  localization/      zhs / eng / jpn / rus
   Scenes/  Shaders/  Materials/  Audio/
 docs/DESIGN.md       设计与维护文档
 ```

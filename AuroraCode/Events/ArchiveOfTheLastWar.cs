@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.CardSelection;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Events;
+using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Helpers;
 using MegaCrit.Sts2.Core.HoverTips;
@@ -23,10 +24,12 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Events;
 
 /// <summary>
-/// E-03 终战指令库 / Archive of the Last War（奥萝拉专属，第 1–2 幕）。
+/// E-03 终战指令库 / Archive of the Last War（队伍中有奥萝拉时可遇，第 1–2 幕）。
 /// 载入独剑记录：失去当前生命 → 从 3 张随机 B·剑势 普通/罕见牌中选 1 张加入牌组 → 授予「预载·4剑势」。
 /// 载入连携记录：失去当前生命 → 从 3 张随机 D·连锁 普通/罕见牌中选 1 张加入牌组 → 授予「预载·连携」（下一场首回合抽2+积2热）。
-/// 执行遗忘：失去 5 点最大生命 → 从牌组移除 1 张牌（最大生命不足则禁用）。候选卡按 <see cref="EventModel.Rng"/> 抽取（联机一致）。仅奥萝拉可遇。
+/// 非奥萝拉调阅战术记录：失去当前生命 → 从自己角色的卡池抽 3 张候选，选 1 张加入牌组，不获得预载遗物。
+/// 执行遗忘：失去 5 点最大生命 → 从牌组移除 1 张牌（最大生命不足则禁用）。候选卡按 <see cref="EventModel.Rng"/> 抽取（联机一致）。
+/// 队伍中有奥萝拉即可遇到；事件拥有者不是奥萝拉时改走通用支线。
 /// </summary>
 public class ArchiveOfTheLastWar : CustomEventModel
 {
@@ -57,10 +60,20 @@ public class ArchiveOfTheLastWar : CustomEventModel
 
     protected override IReadOnlyList<EventOption> GenerateInitialOptions()
     {
-        // 混队守卫：非奥萝拉拥有者只能离开。
+        // 混队通用支线：队友只能读取自己的卡池，不获得奥萝拉机制奖励或预载遗物。
         if (Owner?.Character is not Aurora)
         {
-            return new List<EventOption> { Option(Leave, Loc("pages.INITIAL.options.LEAVE.title"), Loc("pages.INITIAL.options.LEAVE.description")) };
+            var cardRewardTips = new[] { HoverTipFactory.Static(StaticHoverTip.CardReward) };
+            return new List<EventOption>
+            {
+                CanAffordHp()
+                    ? Option(StudyRecords, Loc("pages.INITIAL.options.STUDY_RECORDS.title"), Loc("pages.INITIAL.options.STUDY_RECORDS.description"), cardRewardTips)
+                    : LockedOption("STUDY_RECORDS", "INITIAL", cardRewardTips),
+                CanForget()
+                    ? Option(Forget, Loc("pages.INITIAL.options.FORGET.title"), Loc("pages.INITIAL.options.FORGET.description"))
+                    : LockedOption("FORGET"),
+                Option(Leave, Loc("pages.INITIAL.options.LEAVE.title"), Loc("pages.INITIAL.options.LEAVE.description")),
+            };
         }
 
         var affordable = CanAffordHp();
@@ -98,7 +111,7 @@ public class ArchiveOfTheLastWar : CustomEventModel
     private async Task LoadLoneBlade()
     {
         await PayHpAsync();
-        await OfferCandidateAsync(AuroraMechanic.Momentum);
+        await OfferAuroraCandidateAsync(AuroraMechanic.Momentum);
         await RelicCmd.Obtain<AuroraPreloadMomentum4Relic>(Owner);
         SetEventFinished(Loc("pages.LONE_BLADE.description"));
     }
@@ -106,9 +119,24 @@ public class ArchiveOfTheLastWar : CustomEventModel
     private async Task LoadSequence()
     {
         await PayHpAsync();
-        await OfferCandidateAsync(AuroraMechanic.Chain);
+        await OfferAuroraCandidateAsync(AuroraMechanic.Chain);
         await RelicCmd.Obtain<AuroraPreloadChainDrawRelic>(Owner);
         SetEventFinished(Loc("pages.SEQUENCE.description"));
+    }
+
+    private async Task StudyRecords()
+    {
+        await PayHpAsync();
+
+        var options = new CardCreationOptions(
+                new[] { Owner.Character.CardPool },
+                CardCreationSource.Other,
+                CardRarityOddsType.RegularEncounter)
+            .WithFlags(CardCreationFlags.NoCardPoolModifications | CardCreationFlags.NoRarityModification)
+            .WithRngOverride(Rng);
+        await OfferCandidateAsync(options);
+
+        SetEventFinished(Loc("pages.STUDY_RECORDS.description"));
     }
 
     private async Task Forget()
@@ -146,28 +174,33 @@ public class ArchiveOfTheLastWar : CustomEventModel
             ValueProp.Unblockable | ValueProp.Unpowered, null, null);
     }
 
-    /// <summary>从奥萝拉卡池按机制+普通/罕见抽 3 张候选（Rng 联机一致），弹「选一张」加入牌组。候选为空则跳过。</summary>
-    private async Task OfferCandidateAsync(AuroraMechanic mechanic)
+    /// <summary>从奥萝拉卡池按机制+普通/罕见抽 3 张候选；保持原有等概率、无升级、无奖励修改，只补原版联机卡过滤。</summary>
+    private Task OfferAuroraCandidateAsync(AuroraMechanic mechanic)
     {
-        var pool = ModelDb.CardPool<AuroraCardPool>().AllCards
-            .OfType<AuroraCard>()
-            .Where(c => (c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon)
-                        && c.DeclaredMechanics.Contains(mechanic))
-            .Cast<CardModel>()
-            .ToList();
+        var options = new CardCreationOptions(
+                new[] { ModelDb.CardPool<AuroraCardPool>() },
+                CardCreationSource.Other,
+                CardRarityOddsType.Uniform,
+                c => c is AuroraCard auroraCard
+                     && (c.Rarity == CardRarity.Common || c.Rarity == CardRarity.Uncommon)
+                     && auroraCard.DeclaredMechanics.Contains(mechanic))
+            .WithFlags(CardCreationFlags.NoModifications)
+            .WithRngOverride(Rng);
+        return OfferCandidateAsync(options);
+    }
 
-        var candidates = new List<CardModel>();
-        for (var i = 0; i < CandidateCount && pool.Count > 0; i++)
-        {
-            var pick = Rng.NextItem(pool);
-            pool.Remove(pick);
-            candidates.Add(Owner.RunState.CreateCard(pick, Owner));
-        }
-
-        if (candidates.Count == 0)
+    /// <summary>按原版奖励规则生成 3 张互不重复的候选并弹出选牌界面；联机卡过滤由 <see cref="CardFactory"/> 统一处理。</summary>
+    private async Task OfferCandidateAsync(CardCreationOptions options)
+    {
+        var candidateCount = Math.Min(CandidateCount, options.GetPossibleCards(Owner).Distinct().Count());
+        if (candidateCount == 0)
         {
             return;
         }
+
+        var candidates = CardFactory.CreateForReward(Owner, candidateCount, options)
+            .Select(result => result.Card)
+            .ToList();
 
         // 【必须是 Blocking，不能用 Throwing】ThrowingPlayerChoiceContext 的语义是「确信这条调用链绝不会
         // 发起玩家选择，发起了就抛」——它的 SignalPlayerChoiceBegun 直接 throw NotImplementedException。
