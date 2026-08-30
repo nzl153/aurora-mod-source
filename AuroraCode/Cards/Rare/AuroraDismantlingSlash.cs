@@ -53,7 +53,7 @@ public class AuroraDismantlingSlash() : AuroraCard(1, CardType.Attack, CardRarit
             dmg = (int)DynamicVars.Damage.BaseValue;
         }
 
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

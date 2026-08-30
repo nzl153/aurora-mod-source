@@ -52,7 +52,7 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
 
         // 1. 每次真实结算:单段攻击。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 2. 积 1 热(战斗结束/无效时 AddHeatAsync 内部自守卫)。
         await HeatPower.AddHeatAsync(choiceContext, creature, 1, this);

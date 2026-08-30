@@ -41,7 +41,7 @@ public class AuroraReactorPiledriver() : AuroraCard(2, CardType.Attack, CardRari
         }
 
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

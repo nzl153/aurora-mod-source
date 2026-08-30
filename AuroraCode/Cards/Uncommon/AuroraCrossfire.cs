@@ -37,7 +37,7 @@ public class AuroraCrossfire() : AuroraCard(1, CardType.Attack, CardRarity.Uncom
 
         // 1) 主 powered 群攻（AllEnemies 由 CardAttack 自动分发到全体）。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         if (creature == null)
         {

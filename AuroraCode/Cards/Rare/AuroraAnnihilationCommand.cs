@@ -60,7 +60,7 @@ public class AuroraAnnihilationCommand() : AuroraCard(1, CardType.Attack, CardRa
                 break;
             }
 
-            await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
         }
     }
 

@@ -41,7 +41,7 @@ public class AuroraMeltdownSlash() : AuroraCard(1, CardType.Attack, CardRarity.U
         var damage = (int)DynamicVars.Damage.BaseValue;
 
         // 第一段（两分支都打）。
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         if (!overloaded)
         {
@@ -49,7 +49,7 @@ public class AuroraMeltdownSlash() : AuroraCard(1, CardType.Attack, CardRarity.U
         }
 
         // 过载/临界：独立第二段（同目标；首段击杀不转移目标、不免除引爆）。
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 两段后引爆。战斗已被引擎正式终止时不在结算外强写过热状态。
         if (creature != null && CombatManager.Instance?.IsInProgress == true)

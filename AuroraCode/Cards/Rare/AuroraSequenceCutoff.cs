@@ -51,7 +51,7 @@ public class AuroraSequenceCutoff() : AuroraCard(2, CardType.Attack, CardRarity.
                 break;
             }
 
-            await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
         }
 
         // 伤害在散热之前；战斗仍在进行则散尽全部热量（不触发过热，不取消已登记 Pending）。

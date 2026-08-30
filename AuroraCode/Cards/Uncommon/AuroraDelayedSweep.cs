@@ -62,7 +62,7 @@ public class AuroraDelayedSweep() : AuroraCard(1, CardType.Attack, CardRarity.Un
 
         // 合并单段 powered AoE（整段统一吃力量/易伤/过载×1.25/取整/锁定+2）；底薪由伤害中心另行叠加。
         var dmg = (int)DynamicVars.Damage.BaseValue + bonus;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

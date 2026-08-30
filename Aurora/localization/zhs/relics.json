@@ -1,10 +1,10 @@
 {
   "AURORAMOD-HEAT_DISSIPATION_CORE.title": "散热核心",
   "AURORAMOD-HEAT_DISSIPATION_CORE.flavor": "封存那天，全机只剩它还在低声运转。",
-  "AURORAMOD-HEAT_DISSIPATION_CORE.description": "回合结束时按热量区段触发：冷区获得4点格挡；温区先获得2点格挡，再对随机敌人造成2点伤害；过载区对随机敌人造成4点伤害。",
+  "AURORAMOD-HEAT_DISSIPATION_CORE.description": "回合结束时按热量区段触发：冷区获得5点格挡；温区先获得3点格挡，再对随机敌人造成3点伤害；过载区对随机敌人造成6点伤害。",
   "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.title": "强化散热核心",
   "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.flavor": "先古之民拨动了它，它便想起自己生来是把武器。",
-  "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.description": "回合结束时按热量区段触发：冷区获得6点格挡；温区先获得3点格挡，再对随机敌人造成3点伤害；过载区对随机敌人造成6点伤害。",
+  "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.description": "回合结束时按热量区段触发：冷区获得7点格挡；温区先获得4点格挡，再对随机敌人造成4点伤害；过载区对随机敌人造成8点伤害。",
   "AURORAMOD-PULSE_METRONOME.title": "脉冲节拍器",
   "AURORAMOD-PULSE_METRONOME.flavor": "第三拍，装甲闭合；第四拍，炉温上扬。",
   "AURORAMOD-PULSE_METRONOME.description": "每回合激活连锁时，获得5点格挡，随后积1点热量。",

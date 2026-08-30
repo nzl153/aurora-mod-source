@@ -53,7 +53,7 @@ public class AuroraCountermeasure() : AuroraCard(1, CardType.Attack, CardRarity.
         var special = cardPlay.IsFirstInSeries && hasOwnProtocol;
 
         // 1. 单段 powered 攻击（不消费协议）。
-        await CommonActions.CardAttack(this, cardPlay, target, (int)DynamicVars.Damage.BaseValue, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, target, (int)DynamicVars.Damage.BaseValue, ValueProp.Move).Execute(choiceContext);
 
         // 2. 打出前存在本人协议 → 获得格挡与剑势。
         // 【IsInProgress 守卫】多敌场合击杀单个目标、战斗仍在进行 → 照常发奖；

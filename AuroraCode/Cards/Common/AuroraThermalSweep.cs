@@ -42,7 +42,7 @@ public class AuroraThermalSweep() : AuroraCard(1, CardType.Attack, CardRarity.Co
 
         // 2. 群体 powered 攻击（AllEnemies 由 CardAttack 自动分发；各段各自消费该敌身上本人锁定）。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         if (creature == null)
         {

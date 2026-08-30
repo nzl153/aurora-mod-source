@@ -44,7 +44,7 @@ public class AuroraFluxBlade() : AuroraCard(1, CardType.Attack, CardRarity.Commo
 
         // 1. 单段 powered 攻击。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 2. 仅首次结算调热（伤害之后）；击杀目标也执行。
         if (!isFirst)

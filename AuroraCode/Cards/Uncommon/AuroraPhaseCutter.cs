@@ -50,7 +50,7 @@ public class AuroraPhaseCutter() : AuroraCard(1, CardType.Attack, CardRarity.Unc
         var zone = HeatPower.GetZone(creature);   // 打出前快照
 
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         if (!isFirst || !CombatManager.Instance.IsInProgress)
         {

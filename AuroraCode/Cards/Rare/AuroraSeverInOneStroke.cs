@@ -52,7 +52,7 @@ public class AuroraSeverInOneStroke() : AuroraCard(2, CardType.Attack, CardRarit
         // （攒得越多亏得越多的隐形陷阱）。改为攻击后再清空：底薪照常生效，与不清空的无月行为一致。
         var snapshot = AuroraMomentumService.Get(creature);
         var dmg = (int)DynamicVars.Damage.BaseValue + snapshot * (int)DynamicVars["PerMomentum"].BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
 
         // 清空放在最后：本卡与攻击流程都不会改动剑势，故快照与实际清空量必然一致。
         await AuroraMomentumService.ClearAllAsync(choiceContext, creature, this);

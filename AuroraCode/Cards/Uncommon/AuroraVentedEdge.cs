@@ -79,7 +79,7 @@ public class AuroraVentedEdge() : AuroraCard(1, CardType.Attack, CardRarity.Unco
             (int)DynamicVars["MaxBonus"].BaseValue);
 
         var damage = (int)DynamicVars.Damage.BaseValue + bonus;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

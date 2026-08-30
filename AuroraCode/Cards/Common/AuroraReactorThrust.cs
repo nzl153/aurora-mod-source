@@ -13,10 +13,10 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Common;
 
 /// <summary>
-/// 09 反应炉突刺 / Reactor Thrust（普通，A 过热暴走）。造成 15 伤害；若随后积 3 热会使你过热，先获得 8 格挡；随后积 3 热。
-/// 升级：伤害 15→19，格挡 8→10，积热不变。
+/// 09 反应炉突刺 / Reactor Thrust（普通，A 过热暴走）。造成 18 伤害；若随后积 3 热会使你过热，先获得 10 格挡；随后积 3 热。
+/// 升级：伤害 18→23，格挡 10→12，积热不变。
 /// 结算（过热预测→攻击→条件格挡→积热）：打出前只读一次当前热量做纯预测 willOverheat=heat+3≥10（不预演、不触发副作用）；
-/// 单段 powered 攻击；若预测过热则在 AddHeat(+3) 之前获得 8/10 格挡，故能抵挡紧接着的第一次过热伤害；
+/// 单段 powered 攻击；若预测过热则在 AddHeat(+3) 之前获得 10/12 格挡，故能抵挡紧接着的第一次过热伤害；
 /// 之后照常积 3 热（达 10 走既有 HeatPower 过热流程）。格挡只护本牌伤害之后的事件，不追溯。
 /// </summary>
 public class AuroraReactorThrust() : AuroraCard(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
@@ -29,8 +29,8 @@ public class AuroraReactorThrust() : AuroraCard(2, CardType.Attack, CardRarity.C
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(15, ValueProp.Move),
-        new BlockVar(8, ValueProp.Move),
+        new DamageVar(18, ValueProp.Move),
+        new BlockVar(10, ValueProp.Move),
         new PowerVar<HeatPower>(HeatGain),
     ];
 
@@ -43,7 +43,7 @@ public class AuroraReactorThrust() : AuroraCard(2, CardType.Attack, CardRarity.C
 
         // 2. 单段 powered 攻击。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         if (creature == null)
         {
@@ -62,7 +62,7 @@ public class AuroraReactorThrust() : AuroraCard(2, CardType.Attack, CardRarity.C
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(4m);   // 15 → 19
-        DynamicVars.Block.UpgradeValueBy(2m);    // 8 → 10
+        DynamicVars.Damage.UpgradeValueBy(5m);   // 18 → 23
+        DynamicVars.Block.UpgradeValueBy(2m);    // 10 → 12
     }
 }

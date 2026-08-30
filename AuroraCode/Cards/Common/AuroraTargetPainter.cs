@@ -34,7 +34,7 @@ public class AuroraTargetPainter() : AuroraCard(1, CardType.Attack, CardRarity.C
 
         // 1. 单段 powered attack（本段消费已有本人锁定，不消费即将施加的新锁定）。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 2. 伤害后施加 2 层本人锁定（目标仍是合法存活对象时；死亡则不施加）。
         var target = cardPlay.Target;

@@ -46,7 +46,7 @@ public class AuroraRapidCommand() : AuroraCard(0, CardType.Attack, CardRarity.Co
             : (int)DynamicVars.Damage.BaseValue;
 
         // 单段 powered 攻击（最右侧只是替换本段基础值，不拆成两段）。
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 最右侧分支伤害后积 1 热（即使击杀目标仍积）。
         if (rightmost && creature != null)

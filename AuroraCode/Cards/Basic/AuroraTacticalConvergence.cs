@@ -14,8 +14,7 @@ namespace AuroraMod.AuroraCode.Cards.Basic;
 
 /// <summary>
 /// 战术收束 / Tactical Convergence（基础，调温）：获得 5 格挡。
-/// 只读一次打出前区段：冷区随后积 2 热；温区或过载区随后散 2 热。升级格挡 5→8。
-/// 格挡 6/9→5/8——普通战几乎不掉血，基础防御地基过于自足，小幅下调（效果/顺序/调热不变）。
+/// 只读一次打出前区段：冷区随后积 2 热；温区随后积 1 热；过载区随后散 2 热。升级格挡 5→8。
 /// 结算：读区段 → 格挡 → 调热。
 /// </summary>
 public class AuroraTacticalConvergence() : AuroraCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
@@ -24,12 +23,11 @@ public class AuroraTacticalConvergence() : AuroraCard(1, CardType.Skill, CardRar
 
     protected override IEnumerable<AuroraMechanic> MechanicTips => [AuroraMechanic.Heat];
 
-    private const int ZoneHeatDelta = 2;
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new BlockVar(5, ValueProp.Move),
         new PowerVar<HeatPower>(2m),
+        new DynamicVar("WarmHeat", 1m),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
@@ -47,12 +45,14 @@ public class AuroraTacticalConvergence() : AuroraCard(1, CardType.Skill, CardRar
         switch (zone)
         {
             case HeatPower.HeatZone.Cold:
-                await HeatPower.AddHeatAsync(choiceContext, creature, ZoneHeatDelta, this);
+                await HeatPower.AddHeatAsync(choiceContext, creature, (int)DynamicVars["HeatPower"].BaseValue, this);
                 break;
             case HeatPower.HeatZone.Warm:
+                await HeatPower.AddHeatAsync(choiceContext, creature, (int)DynamicVars["WarmHeat"].BaseValue, this);
+                break;
             case HeatPower.HeatZone.Overload:
             case HeatPower.HeatZone.Critical:
-                await HeatPower.AddHeatAsync(choiceContext, creature, -ZoneHeatDelta, this);
+                await HeatPower.AddHeatAsync(choiceContext, creature, -(int)DynamicVars["HeatPower"].BaseValue, this);
                 break;
         }
     }

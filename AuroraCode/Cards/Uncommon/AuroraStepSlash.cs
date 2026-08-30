@@ -49,7 +49,7 @@ public class AuroraStepSlash() : AuroraCard(0, CardType.Attack, CardRarity.Uncom
         var special = cardPlay.IsFirstInSeries && !cardPlay.IsAutoPlay
                       && creature != null && ChainPower.GetCount(creature) == SequenceIndex;
 
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target,
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target,
             (int)DynamicVars.Damage.BaseValue, ValueProp.Move).Execute(choiceContext);
 
         var target = cardPlay.Target;

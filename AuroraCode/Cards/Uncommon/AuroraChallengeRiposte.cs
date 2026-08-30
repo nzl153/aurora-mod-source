@@ -57,7 +57,7 @@ public class AuroraChallengeRiposte() : AuroraCard(1, CardType.Attack, CardRarit
         // 2. 条件加值并入同一段 powered 攻击（绝不拆段：整段统一吃一次力量/易伤/过载×1.25/宕机；锁定 +2 与消费由伤害中心处理）。
         var damage = (int)DynamicVars.Damage.BaseValue
                      + consumed * (int)DynamicVars["DamagePerStack"].BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 3. 按实际移除层数散热（协议上限 3 → 最多散 3）；无协议则不散热。
         if (creature == null || consumed <= 0)

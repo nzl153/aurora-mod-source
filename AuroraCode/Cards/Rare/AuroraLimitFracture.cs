@@ -54,7 +54,7 @@ public class AuroraLimitFracture() : AuroraCard(3, CardType.Attack, CardRarity.R
                             (int)DynamicVars["RiskBonusCap"].BaseValue);
         var dmg = (int)DynamicVars.Damage.BaseValue + risk;
 
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
 
         // 战斗仍在进行才积 5 热（胜利宽恕：击杀最后敌人则不积）。
         if (CombatManager.Instance.IsInProgress)

@@ -60,7 +60,7 @@ public class AuroraCoreSplitter() : AuroraCard(2, CardType.Attack, CardRarity.Un
                 break;
             }
 
-            await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
         }
     }
 

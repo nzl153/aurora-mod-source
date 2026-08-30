@@ -13,7 +13,7 @@ namespace AuroraMod.AuroraCode.Relics;
 
 /// <summary>
 /// 散热核心 / Heat Dissipation Core —— 奥萝拉起始遗物（架构 §4.5）。
-/// 己方回合结束时按最终热量区段触发一次：冷区获 4 格挡；温区先获 2 格挡再对随机敌 2 伤；过载区对随机敌 4 伤。
+/// 己方回合结束时按最终热量区段触发一次：冷区获 5 格挡；温区先获 3 格挡再对随机敌 3 伤；过载区对随机敌 6 伤。
 /// 三区段的「防御 / 混合 / 进攻」身份 + 冷区必须有收益不可改回。数值属首轮实测可调项。
 /// </summary>
 public class HeatDissipationCore : AuroraRelic
@@ -22,10 +22,10 @@ public class HeatDissipationCore : AuroraRelic
     protected override string ArtName => "heat_core";
 
     // 三区段数值（强化版覆盖）。冷=纯防御 / 温=混合 / 过载=纯进攻。
-    protected virtual int ColdBlock => 4;
-    protected virtual int WarmBlock => 2;
-    protected virtual int WarmDamage => 2;
-    protected virtual int OverloadDamage => 4;
+    protected virtual int ColdBlock => 5;
+    protected virtual int WarmBlock => 3;
+    protected virtual int WarmDamage => 3;
+    protected virtual int OverloadDamage => 6;
 
     /// <summary>
     /// 战斗开始统一挂载连锁追踪器（架构 §7.1），使第 1 张牌起就计数。

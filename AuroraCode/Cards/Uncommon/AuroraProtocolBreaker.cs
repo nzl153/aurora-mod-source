@@ -40,7 +40,7 @@ public class AuroraProtocolBreaker() : AuroraCard(1, CardType.Attack, CardRarity
 
         // 1. 单段 powered 攻击（协议只影响敌→你承伤、不影响你的输出；先打后消费只为把风险兑现为剑势）。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 2. 击杀则跳过（#38 明确：目标死亡不消费、不给剑势）。
         if (creature == null || target == null || !target.IsAlive)

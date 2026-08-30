@@ -40,7 +40,7 @@ public class AuroraSearingCut() : AuroraCard(1, CardType.Attack, CardRarity.Comm
 
         // 2. 单段 powered attack（力量/易伤/过载/锁定各只结算一次）。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 3. 按打出前快照获得条件格挡（目标即使被击杀也照给）。
         if (willAttack && creature != null)

@@ -60,7 +60,7 @@ public class AuroraArrayExecution() : AuroraCard(2, CardType.Attack, CardRarity.
             ? (int)DynamicVars["EmpoweredDamage"].BaseValue
             : (int)DynamicVars.Damage.BaseValue;
 
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
 
         if (special)
         {

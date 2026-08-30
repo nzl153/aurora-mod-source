@@ -53,7 +53,7 @@ public class AuroraFormationAssault() : AuroraCard(1, CardType.Attack, CardRarit
         // 数量加值先并入本段基础伤害，整段统一吃乘区。
         var dmg = (int)DynamicVars.Damage.BaseValue
                   + moduleCount * (int)DynamicVars["DamagePerModule"].BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
 
         // 混合构型（同时有攻击与护盾模块）且战斗仍在进行 → 散 1 热。
         if (wasMixed && CombatManager.Instance.IsInProgress)

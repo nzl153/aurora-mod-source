@@ -1,10 +1,10 @@
 {
   "AURORAMOD-HEAT_DISSIPATION_CORE.title": "Heat Dissipation Core",
   "AURORAMOD-HEAT_DISSIPATION_CORE.flavor": "On the day they sealed her away, it was the only part still humming.",
-  "AURORAMOD-HEAT_DISSIPATION_CORE.description": "At the end of your turn, based on your Heat zone: Cold — gain 4 Block. Warm — gain 2 Block, then deal 2 damage to a random enemy. Overload — deal 4 damage to a random enemy.",
+  "AURORAMOD-HEAT_DISSIPATION_CORE.description": "At the end of your turn, based on your Heat zone: Cold — gain 5 Block. Warm — gain 3 Block, then deal 3 damage to a random enemy. Overload — deal 6 damage to a random enemy.",
   "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.title": "Reinforced Heat Core",
   "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.flavor": "The Ancients gave it a turn, and it remembered it was born a weapon.",
-  "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.description": "At the end of your turn, based on your Heat zone: Cold — gain 6 Block. Warm — gain 3 Block, then deal 3 damage to a random enemy. Overload — deal 6 damage to a random enemy.",
+  "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.description": "At the end of your turn, based on your Heat zone: Cold — gain 7 Block. Warm — gain 4 Block, then deal 4 damage to a random enemy. Overload — deal 8 damage to a random enemy.",
   "AURORAMOD-PULSE_METRONOME.title": "Pulse Metronome",
   "AURORAMOD-PULSE_METRONOME.flavor": "On the third beat, armor locks. On the fourth, the reactor climbs.",
   "AURORAMOD-PULSE_METRONOME.description": "Whenever you become Chained, gain 5 Block, then gain 1 Heat.",

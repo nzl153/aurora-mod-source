@@ -46,7 +46,7 @@ public class AuroraAdaptiveArc() : AuroraCard(1, CardType.Attack, CardRarity.Com
 
         // 2. 单段 powered 攻击（正常消费目标已有本人锁定）。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 3. 伤害后按快照二选一施加（目标存活才施；击杀则都不施）。
         var target = cardPlay.Target;

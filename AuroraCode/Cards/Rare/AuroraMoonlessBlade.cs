@@ -54,7 +54,7 @@ public class AuroraMoonlessBlade() : AuroraCard(2, CardType.Attack, CardRarity.R
 
         var momentum = Math.Min(AuroraMomentumService.Get(creature), (int)DynamicVars["MomentumCap"].BaseValue);
         var dmg = (int)DynamicVars.Damage.BaseValue + momentum * (int)DynamicVars["PerMomentum"].BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

@@ -47,7 +47,7 @@ public class AuroraArmorSlam() : AuroraCard(1, CardType.Attack, CardRarity.Uncom
 
         // 读当前格挡即为伤害。不消耗格挡：撞完护板还在。
         var damage = (int)DynamicVars.Damage.BaseValue + creature.Block;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

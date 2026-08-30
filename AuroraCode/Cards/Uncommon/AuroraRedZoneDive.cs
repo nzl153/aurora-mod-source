@@ -46,7 +46,7 @@ public class AuroraRedZoneDive() : AuroraCard(2, CardType.Attack, CardRarity.Unc
 
         // 1. 单段 powered 攻击(按打出时实际区段吃过载增伤)。
         var damage = (int)DynamicVars.Damage.BaseValue;
-        await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 2. 仅首次结算调热(伤害之后);击杀目标后仍执行。
         if (!isFirst || !CombatManager.Instance.IsInProgress)

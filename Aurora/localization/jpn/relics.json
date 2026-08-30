@@ -1,10 +1,10 @@
 {
   "AURORAMOD-HEAT_DISSIPATION_CORE.title": "放熱コア",
   "AURORAMOD-HEAT_DISSIPATION_CORE.flavor": "封印されたあの日、まだ唸りを上げていたのはこれだけだった。",
-  "AURORAMOD-HEAT_DISSIPATION_CORE.description": "ターン終了時、現在のヒート域に応じて発動する。コールド ── ブロックを4得る。ウォーム ── ブロックを2得た後、ランダムな敵1体に2ダメージ。オーバーロード ── ランダムな敵1体に4ダメージ。",
+  "AURORAMOD-HEAT_DISSIPATION_CORE.description": "ターン終了時、現在のヒート域に応じて発動する。コールド ── ブロックを5得る。ウォーム ── ブロックを3得た後、ランダムな敵1体に3ダメージ。オーバーロード ── ランダムな敵1体に6ダメージ。",
   "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.title": "強化放熱コア",
   "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.flavor": "古代者が一度だけ手を加えた。そして、それは自分が兵器だったことを思い出した。",
-  "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.description": "ターン終了時、現在のヒート域に応じて発動する。コールド ── ブロックを6得る。ウォーム ── ブロックを3得た後、ランダムな敵1体に3ダメージ。オーバーロード ── ランダムな敵1体に6ダメージ。",
+  "AURORAMOD-HEAT_DISSIPATION_CORE_PLUS.description": "ターン終了時、現在のヒート域に応じて発動する。コールド ── ブロックを7得る。ウォーム ── ブロックを4得た後、ランダムな敵1体に4ダメージ。オーバーロード ── ランダムな敵1体に8ダメージ。",
   "AURORAMOD-PULSE_METRONOME.title": "パルス・メトロノーム",
   "AURORAMOD-PULSE_METRONOME.flavor": "三拍目で装甲が固まる。四拍目で炉心が上がる。",
   "AURORAMOD-PULSE_METRONOME.description": "コマンドチェイン状態になるたび、ブロックを5得て、ヒートを1得る。",

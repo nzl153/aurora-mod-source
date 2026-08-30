@@ -60,7 +60,7 @@ public class AuroraScorchedEarthStorm() : AuroraCard(2, CardType.Attack, CardRar
                 break;
             }
 
-            await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
         }
 
         // 全体已清场：不积热、不追加第三段（胜利宽恕）。
@@ -93,7 +93,7 @@ public class AuroraScorchedEarthStorm() : AuroraCard(2, CardType.Attack, CardRar
                         break;
                     }
 
-                    await CommonActions.CardAttack(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
+                    await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
                 }
             }
         }
