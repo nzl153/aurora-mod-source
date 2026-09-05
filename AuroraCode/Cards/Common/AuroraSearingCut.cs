@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Common;
 
 /// <summary>
-/// 08 灼热切割 / Searing Cut（普通，A）。造成 7 伤；若目标将攻击，获得 4 格挡；随后积 2 热。升级 7/4→10/5，积热不变。
+/// 08 灼热切割 / Searing Cut（普通，A）。造成 8 伤；若目标将攻击，获得 4 格挡；随后积 2 热。升级 8/4→11/5，积热不变。
 /// 顺序（§4.1）：结算开始只读一次目标 IntendsToAttack → 1 段 powered attack → 按快照获得格挡 → AddHeat(+2)。
 /// 格挡在积热之前，故 9 热打出时新格挡可抵挡随之而来的过热伤害；目标被击杀仍按快照获得格挡并积热。
 /// </summary>
@@ -26,7 +26,7 @@ public class AuroraSearingCut() : AuroraCard(1, CardType.Attack, CardRarity.Comm
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(7, ValueProp.Move),
+        new DamageVar(8, ValueProp.Move),
         new BlockVar(4, ValueProp.Move),
         new PowerVar<HeatPower>(2m),
     ];
@@ -57,7 +57,7 @@ public class AuroraSearingCut() : AuroraCard(1, CardType.Attack, CardRarity.Comm
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);   // 7 → 10
+        DynamicVars.Damage.UpgradeValueBy(3m);   // 8 → 11
         DynamicVars.Block.UpgradeValueBy(1m);    // 4 → 5
     }
 }

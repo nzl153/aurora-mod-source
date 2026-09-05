@@ -14,8 +14,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// 29 燃烧进军 / Burning Advance（罕见，A 过热暴走）。造成 8 伤害,积 1 热;本回合第一次由此换区时,本牌返回手牌、
-/// 本回合费用变 0;再次打出后消耗。升级:伤害 8→11。
+/// 29 燃烧进军 / Burning Advance（罕见，A 过热暴走）。造成 9 伤害,积 1 热;本回合第一次由此换区时,本牌返回手牌、
+/// 本回合费用变 0;再次打出后消耗。升级:伤害 9→12。
 /// 因固定 +1 热,普通换区当且仅当打出前热量恰为 3(冷→温)或 6(温→过载);9→过热归零不算换区。
 /// 返手判定放在 <see cref="TryResolveReturnToHand"/>(在 OnPlay 之前按打出前热量预判,可精确预知换区):
 /// 已武装(ExhaustOnNextPlay)→ 交基类走消耗;否则门闩未用且热量==3/6 → 返回手牌;否则默认弃牌。
@@ -37,7 +37,7 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8, ValueProp.Move),
+        new DamageVar(9, ValueProp.Move),
         new PowerVar<HeatPower>(1),
         new DynamicVar("ReturnCost", 0m),
     ];
@@ -124,6 +124,6 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);   // 8 → 11
+        DynamicVars.Damage.UpgradeValueBy(3m);   // 9 → 12
     }
 }

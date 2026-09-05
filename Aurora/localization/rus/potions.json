@@ -2,5 +2,5 @@
   "AURORAMOD-OVERLOAD_CATALYST.title": "Катализатор перегрузки",
   "AURORAMOD-OVERLOAD_CATALYST.description": "Можно использовать, только если Нагрев ниже 7. Повышает Нагрев до 7.",
   "AURORAMOD-NANOFORGE_AMPOULE.title": "Ампула нанокузницы",
-  "AURORAMOD-NANOFORGE_AMPOULE.description": "Выберите атакующий или защитный модуль и разверните его. Усиливает новый модуль на 2, затем активирует его один раз."
+  "AURORAMOD-NANOFORGE_AMPOULE.description": "Выберите и разверните атакующий или защитный модуль; он получает 2 Усиления и активируется один раз."
 }

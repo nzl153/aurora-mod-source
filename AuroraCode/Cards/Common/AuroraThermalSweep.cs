@@ -13,8 +13,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Common;
 
 /// <summary>
-/// 23 热流横扫 / Thermal Sweep（普通，枢纽，群攻）。对所有敌人造成 5 伤害；冷区随后积 2 热，过载区随后最多散 1 热，温区不变。
-/// 升级：伤害 5→7，调热不变。
+/// 23 热流横扫 / Thermal Sweep（普通，枢纽，群攻）。对所有敌人造成 6 伤害；冷区随后积 2 热，过载区随后最多散 1 热，温区不变。
+/// 升级：伤害 6→8，调热不变。
 /// 结算（读区段→群攻→按区段调热一次）：打出前只读一次区段；对全体各 1 段 powered 攻击（各自消费该敌本人锁定）；
 /// 全部命中后只按区段调热一次（冷 AddHeat+2 / 过载·临界 VentUpTo(1) / 温区不动），调热不按命中数重复。
 /// </summary>
@@ -28,7 +28,7 @@ public class AuroraThermalSweep() : AuroraCard(1, CardType.Attack, CardRarity.Co
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(5, ValueProp.Move),
+        new DamageVar(6, ValueProp.Move),
         new DynamicVar("HeatGain", 2m),
         new DynamicVar("VentMax", 1m),
     ];
@@ -65,6 +65,6 @@ public class AuroraThermalSweep() : AuroraCard(1, CardType.Attack, CardRarity.Co
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);   // 5 → 7
+        DynamicVars.Damage.UpgradeValueBy(2m);   // 6 → 8
     }
 }

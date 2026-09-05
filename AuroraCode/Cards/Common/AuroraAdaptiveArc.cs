@@ -15,8 +15,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Common;
 
 /// <summary>
-/// 14 自适应电弧 / Adaptive Arc（普通，枢纽，浅接锁定）。造成 7 伤害；若目标将攻击随后给予 1 虚弱，否则随后施加 2 锁定。
-/// 升级：伤害 7→9，虚弱/锁定层数不变。
+/// 14 自适应电弧 / Adaptive Arc（普通，枢纽，浅接锁定）。造成 9 伤害；若目标将攻击随后给予 1 虚弱，否则随后施加 2 锁定。
+/// 升级：伤害 9→11，虚弱/锁定层数不变。
 /// 结算（读意图→攻击→按快照施加）：伤害前只读一次目标意图（含至少一个伤害段=将攻击，与 #08 同判据）；单段 powered
 /// 攻击（正常消费目标已有本人锁定）；伤害后若目标存活，攻击意图→施 1 虚弱，否则→ AuroraLockService 施 2 层本人锁定。
 /// 两分支互斥；击杀则都不施加；虚弱/锁定均是会被人工制品阻挡的 Debuff。
@@ -32,7 +32,7 @@ public class AuroraAdaptiveArc() : AuroraCard(1, CardType.Attack, CardRarity.Com
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8, ValueProp.Move),
+        new DamageVar(9, ValueProp.Move),
         new PowerVar<WeakPower>(1m),
         new DynamicVar("LockStacks", 2m),
     ];
@@ -67,6 +67,6 @@ public class AuroraAdaptiveArc() : AuroraCard(1, CardType.Attack, CardRarity.Com
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);   // 7 → 9
+        DynamicVars.Damage.UpgradeValueBy(2m);   // 9 → 11
     }
 }

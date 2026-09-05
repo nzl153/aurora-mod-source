@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// 37 相位切割 / Phase Cutter（罕见，枢纽）。造成 9 伤害；按打出前区段：冷区给 1 虚弱，温区施 2 锁定，过载区散 1 热。升级 9→12。
+/// 37 相位切割 / Phase Cutter（罕见，枢纽）。造成 10 伤害；按打出前区段：冷区给 1 虚弱，温区施 2 锁定，过载区散 1 热。升级 10→13。
 /// 三区段适配接口而非按热量加伤害。结算：读打出前 zoneSnapshot → 单段 powered 攻击 → 仅 IsFirstInSeries 走区段副效果
 /// （冷=虚弱、温=锁定经 AuroraLockService、过载/红线=VentUpTo(1) 不取消 Pending）。Echo 只重复伤害；目标死亡不改施他人。
 /// 1 费罕见位数值上调（对照原版 680 张卡解包统计：奥萝拉 1 费罕见攻击均值 7.2 / 中位 7，
@@ -32,7 +32,7 @@ public class AuroraPhaseCutter() : AuroraCard(1, CardType.Attack, CardRarity.Unc
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(9, ValueProp.Move),
+        new DamageVar(10, ValueProp.Move),
         new PowerVar<WeakPower>(1m),
         new DynamicVar("LockStacks", 2m),
         new DynamicVar("VentMax", 1m),
@@ -82,6 +82,6 @@ public class AuroraPhaseCutter() : AuroraCard(1, CardType.Attack, CardRarity.Unc
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);   // 9 → 12
+        DynamicVars.Damage.UpgradeValueBy(3m);   // 10 → 13
     }
 }

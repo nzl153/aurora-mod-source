@@ -13,8 +13,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// B4 延迟横斩 / Delayed Sweep（罕见，B 剑势；群体）。对所有敌人造成 7 伤害；每 2 点剑势额外 +1，最多 +6。<b>不清空剑势</b>。
-/// 升级：基础 7→9，加成上限 +6→+8。
+/// B4 延迟横斩 / Delayed Sweep（罕见，B 剑势；群体）。对所有敌人造成 8 伤害；每 2 点剑势额外 +1，最多 +6。<b>不清空剑势</b>。
+/// 升级：基础 8→10，加成上限 +6→+8。
 ///
 /// 本卡原本读「上回合是否打出攻击」，<b>挂着 B 的名分却与剑势毫无关系</b>（旧注释明写不挂 Momentum 提示），
 /// 且「主动空一回合不打人」的判据非常别扭。改为 B 唯一的<b>罕见小终端</b>——补上流派曲线里缺失的中段变现口
@@ -40,7 +40,7 @@ public class AuroraDelayedSweep() : AuroraCard(1, CardType.Attack, CardRarity.Un
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new AuroraScalingDamageVar(7, ValueProp.Move, c =>
+        new AuroraScalingDamageVar(8, ValueProp.Move, c =>
             Math.Min(MomentumPower.Get(c.Owner?.Creature) / (int)c.DynamicVars["MomentumPerDamage"].BaseValue,
                      (int)c.DynamicVars["MomentumDamageCap"].BaseValue)),
         new DynamicVar("MomentumPerDamage", 2m),
@@ -67,7 +67,7 @@ public class AuroraDelayedSweep() : AuroraCard(1, CardType.Attack, CardRarity.Un
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);                    // 7 → 9
+        DynamicVars.Damage.UpgradeValueBy(2m);                    // 8 → 10
         DynamicVars["MomentumDamageCap"].UpgradeValueBy(2m);      // +6 → +8
     }
 }

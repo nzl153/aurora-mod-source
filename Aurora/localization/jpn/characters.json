@@ -1,7 +1,7 @@
 {
   "AURORAMOD-AURORA.title": "オーロラ",
   "AURORAMOD-AURORA.titleObject": "オーロラ",
-  "AURORAMOD-AURORA.description": "停止命令が届かなかった戦争機械。\n炉心を熱したまま走り、オーバーロードと引き換えに一撃を重くする。",
+  "AURORAMOD-AURORA.description": "停止命令が届かなかった戦争機械。\n吸熱してオーバーロードに入ると攻撃が強化されるが、限界でオーバーヒートする。",
   "AURORAMOD-AURORA.pronounObject": "彼女",
   "AURORAMOD-AURORA.possessiveAdjective": "彼女の",
   "AURORAMOD-AURORA.pronounPossessive": "彼女のもの",

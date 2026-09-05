@@ -12,8 +12,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Common;
 
 /// <summary>
-/// 13 通量剑 / Flux Blade（普通，枢纽 稳定器）。造成 7 伤害；随后使热量向温区移动 1（冷区积热、过载区散热、温区不变）；<b>若打出前已处于温区，获得 2 剑势</b>。
-/// 升级：伤害 7→10。温区身份：让它成为明确的温区/B 接口，而不是只比打击多 1 伤害。
+/// 13 通量剑 / Flux Blade（普通，枢纽 稳定器）。造成 9 伤害；随后使热量向温区移动 1（冷区积热、过载区散热、温区不变）；<b>若打出前已处于温区，获得 2 剑势</b>。
+/// 升级：伤害 9→12。温区身份：让它成为明确的温区/B 接口。
 /// 结算（打出前读一次区段 → 单段 powered 攻击 → 仅首次调热/温区剑势）：冷区 AddHeat(+1)、过载/临界 VentUpTo(1)、温区改为获 MomentumGain 剑势；
 /// 温区剑势按打出前区段判定、不因攻击后其他效果改变；仅 IsFirstInSeries 执行；击杀目标后仍执行。Echo 每次伤害、仅首次调热/给势。
 /// </summary>
@@ -25,7 +25,7 @@ public class AuroraFluxBlade() : AuroraCard(1, CardType.Attack, CardRarity.Commo
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(8, ValueProp.Move),
+        new DamageVar(9, ValueProp.Move),
         new DynamicVar("HeatStep", 1m),
         new DynamicVar("MomentumGain", 2m),
     ];
@@ -71,6 +71,6 @@ public class AuroraFluxBlade() : AuroraCard(1, CardType.Attack, CardRarity.Commo
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);   // 7 → 10
+        DynamicVars.Damage.UpgradeValueBy(3m);   // 9 → 12
     }
 }

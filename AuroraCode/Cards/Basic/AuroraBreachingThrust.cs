@@ -14,7 +14,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Basic;
 
 /// <summary>
-/// 05 破甲刺 / Breaching Thrust（枢纽）。造成 5 点伤害，给予 1 层易伤。升级：伤害 5→7。
+/// 05 破甲刺 / Breaching Thrust（枢纽）。造成 6 点伤害，给予 1 层易伤。升级：伤害 6→8。
 /// </summary>
 public class AuroraBreachingThrust() : AuroraCard(1, CardType.Attack, CardRarity.Basic, TargetType.AnyEnemy)
 {
@@ -25,7 +25,7 @@ public class AuroraBreachingThrust() : AuroraCard(1, CardType.Attack, CardRarity
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(5, ValueProp.Move),
+        new DamageVar(6, ValueProp.Move),
         new PowerVar<VulnerablePower>(1m),
     ];
 
@@ -41,6 +41,6 @@ public class AuroraBreachingThrust() : AuroraCard(1, CardType.Attack, CardRarity
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);
+        DynamicVars.Damage.UpgradeValueBy(2m);   // 6 → 8
     }
 }

@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// 46 交叉火力 / Crossfire（罕见，C；双轴 A+C）。对所有敌人造成 6 点伤害；使所有攻击模块触发 1 次；然后积 1 热。升级群伤 6 → 8。
+/// 46 交叉火力 / Crossfire（罕见，C；双轴 A+C）。对所有敌人造成 7 点伤害；使所有攻击模块触发 1 次；然后积 1 热。升级群伤 7 → 9。
 /// 顺序固定：powered AoE → <see cref="AuroraModuleController.TriggerAsync"/>(Attack) → 积 1 热。
 /// 主 AoE 吃力量/易伤/过载；模块触发仍走中心 Unpowered 路径（不吃这些乘区、不推进连锁、按模块规则消费本人锁定），本牌不复制模块选敌/伤害/锁定逻辑。
 /// </summary>
@@ -27,7 +27,7 @@ public class AuroraCrossfire() : AuroraCard(1, CardType.Attack, CardRarity.Uncom
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6, ValueProp.Move),
+        new DamageVar(7, ValueProp.Move),
         new PowerVar<HeatPower>(1m),
     ];
 
@@ -51,6 +51,6 @@ public class AuroraCrossfire() : AuroraCard(1, CardType.Attack, CardRarity.Uncom
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);   // 6 → 8
+        DynamicVars.Damage.UpgradeValueBy(2m);   // 7 → 9
     }
 }

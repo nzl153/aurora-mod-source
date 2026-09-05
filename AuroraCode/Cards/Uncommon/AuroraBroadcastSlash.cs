@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// D3 广播斩 / Broadcast Slash（罕见，D 指令连锁；群体）。对所有敌人造成 6 伤害；若打出前已连锁，改为造成两次。升级每段 6→8。
+/// D3 广播斩 / Broadcast Slash（罕见，D 指令连锁；群体）。对所有敌人造成 7 伤害；若打出前已连锁，改为造成两次。升级每段 7→9。
 /// 结算：读打出前连锁快照一次 → special = IsFirstInSeries && 已连锁 → 打 HitCount 段完整 AoE，否则单段。
 /// 段间守卫：战斗已结束则停手；群体无单目标死亡判定。连锁只在两段之间不复判。Echo 额外结算按其自身 IsFirst 规则。
 /// </summary>
@@ -30,7 +30,7 @@ public class AuroraBroadcastSlash() : AuroraCard(1, CardType.Attack, CardRarity.
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(6, ValueProp.Move),
+        new DamageVar(7, ValueProp.Move),
         new DynamicVar("HitCount", 2m),
     ];
 
@@ -55,6 +55,6 @@ public class AuroraBroadcastSlash() : AuroraCard(1, CardType.Attack, CardRarity.
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(2m);   // 6 → 8
+        DynamicVars.Damage.UpgradeValueBy(2m);   // 7 → 9
     }
 }

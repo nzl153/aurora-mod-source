@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BaseLib.Utils;
 using AuroraMod.AuroraCode.Cards;
 using AuroraMod.AuroraCode.Helpers;
 using AuroraMod.AuroraCode.Powers;
@@ -14,8 +13,9 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Basic;
 
 /// <summary>
-/// 侧移 / Sidestep（基础，D 一次浅连锁教学）。0 费、消耗：
+/// 侧移 / Sidestep（基础，D 可循环浅连锁教学）。0 费：
 /// 未连锁获 3 格挡；本牌结算前已连锁则获 6 格挡。升级 3/6→4/8。
+/// 使用后进入弃牌堆，可在后续循环中继续作为 Chain 起手。
 /// </summary>
 public class AuroraSidestep() : AuroraCard(0, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
@@ -23,7 +23,6 @@ public class AuroraSidestep() : AuroraCard(0, CardType.Skill, CardRarity.Basic, 
 
     /// <summary>金框：已连锁时额外效果可触发（工坊反馈 #1，沿用原版 Dismantle/Spite 的金框语义）。</summary>
     protected override bool ShouldGlowGoldInternal => AuroraGlow.Chained(this);
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override IEnumerable<AuroraMechanic> MechanicTips => [AuroraMechanic.Chain];
 
@@ -48,12 +47,4 @@ public class AuroraSidestep() : AuroraCard(0, CardType.Skill, CardRarity.Basic, 
         DynamicVars.Block.UpgradeValueBy(1m);
         DynamicVars["ChainedBlock"].UpgradeValueBy(2m);
     }
-
-#if STS2_BETA
-    // beta v0.111.0：GetResultPileTypeForCardPlay 换成返回 CardLocation 的 GetResultLocationForCardPlay。
-    protected override CardLocation GetResultLocationForCardPlay() =>
-        new(Owner, PileType.Exhaust, CardPilePosition.Bottom);
-#else
-    protected override PileType GetResultPileTypeForCardPlay() => PileType.Exhaust;
-#endif
 }

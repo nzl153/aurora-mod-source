@@ -13,8 +13,8 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// B-U?? 泄势斩 / Vented Edge（罕见，B 剑势）。造成 6 伤害；每 {PerStacks} 点剑势追加 {PerBonus} 点伤害，
-/// 追加最多 {MaxBonus} 点。<b>不清空剑势。</b>升级：基础伤害 6→9。
+/// B-U?? 泄势斩 / Vented Edge（罕见，B 剑势）。造成 7 伤害；每 {PerStacks} 点剑势追加 {PerBonus} 点伤害，
+/// 追加最多 {MaxBonus} 点。<b>不清空剑势。</b>升级：基础伤害 7→10。
 ///
 /// 【为什么加这张】剑势的兑现口原本<b>全在稀有</b>（一刀两断 / 无月），
 /// 玩家在抽到稀有之前，剑势除了每 3 点 +1 的底薪之外没有任何可见回报——
@@ -42,7 +42,7 @@ public class AuroraVentedEdge() : AuroraCard(1, CardType.Attack, CardRarity.Unco
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new AuroraScalingDamageVar(6, ValueProp.Move, c => BonusFor(
+        new AuroraScalingDamageVar(7, ValueProp.Move, c => BonusFor(
             MomentumPower.Get(c.Owner?.Creature),
             (int)c.DynamicVars["PerStacks"].BaseValue,
             (int)c.DynamicVars["PerBonus"].BaseValue,
@@ -84,6 +84,6 @@ public class AuroraVentedEdge() : AuroraCard(1, CardType.Attack, CardRarity.Unco
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);   // 6 → 9
+        DynamicVars.Damage.UpgradeValueBy(3m);   // 7 → 10
     }
 }
