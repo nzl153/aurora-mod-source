@@ -11,10 +11,8 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 namespace AuroraMod.AuroraCode.Cards.Rare;
 
 /// <summary>
-/// B-R04 剑势共鸣 / Momentum Resonance（稀有，B 剑势；能力）。回合开始时若剑势少于 10 获得 2 剑势，否则抽 1 张牌。升级费用 1→0。
-/// 分界 6→10（真值在 Power 的 Threshold）——拉长叠势阶段，让剑势累积到可兑现的爆发量。
-/// 结算：经 <see cref="AuroraMomentumResonancePower"/>（Amount=层数，回合开始读一次剑势快照，少于 10 得 2×层数势、否则抽层数张）。
-/// 把"是否清空剑势"变长期决策：保留高势持续抽牌（喂无月），清空则回到自动蓄势。打出时无即时收益。
+/// 剑势共鸣（稀有能力）：回合开始剑势不足10时，每层获得3剑势；否则每层抽1张。
+/// 升级费用1→0。打出时无即时收益，实际回合效果由对应Power执行。
 /// </summary>
 public class AuroraMomentumResonance() : AuroraCard(1, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
@@ -27,7 +25,7 @@ public class AuroraMomentumResonance() : AuroraCard(1, CardType.Power, CardRarit
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DynamicVar("Threshold", 10m),
-        new DynamicVar("MomentumGain", 2m),
+        new DynamicVar("MomentumGain", 3m),
         new DynamicVar("DrawCount", 1m),
     ];
 

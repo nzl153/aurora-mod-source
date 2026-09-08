@@ -11,9 +11,9 @@
          唯一差异全部收在源码里的 #if STS2_BETA 内，绝不复制源码目录（复制必漂移）。 -->
     <Sts2Beta Condition="'$(Sts2Beta)'==''">false</Sts2Beta>
     <DefineConstants Condition="'$(Sts2Beta)'=='true'">$(DefineConstants);STS2_BETA</DefineConstants>
-    <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.1.0</Version>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
     <TargetFramework>net9.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>

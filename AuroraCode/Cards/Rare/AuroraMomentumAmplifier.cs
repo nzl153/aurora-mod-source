@@ -11,9 +11,8 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 namespace AuroraMod.AuroraCode.Cards.Rare;
 
 /// <summary>
-/// B-R03 势能增幅 / Momentum Amplifier（稀有，B 剑势；消耗）。获得 2 势；打出前每有 1 势再获得 1 势，额外最多 6。消耗。升级费用 1→0。
-/// 结算：读打出前剑势 N → 合并一次获得 (2 + min(N, 6)) 势。最少 2、单次最多 8。不清空、不调热、不产能/抽牌。始终消耗。
-/// Echo 每次重读当时剑势，额外部分仍各受 6 上限；消耗 + 加成上限阻止指数失控。压缩 B 的蓄势周期。
+/// 势能增幅（稀有，消耗）：获得3 + min(当前剑势, 8)点剑势；升级费用1→0。
+/// 每次结算重新读取剑势，额外获取上限独立计算。
 /// </summary>
 public class AuroraMomentumAmplifier() : AuroraCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
@@ -25,8 +24,8 @@ public class AuroraMomentumAmplifier() : AuroraCard(1, CardType.Skill, CardRarit
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DynamicVar("BaseGain", 2m),
-        new DynamicVar("BonusCap", 6m),
+        new DynamicVar("BaseGain", 3m),
+        new DynamicVar("BonusCap", 8m),
     ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

@@ -10,10 +10,10 @@ using MegaCrit.Sts2.Core.Models;
 namespace AuroraMod.AuroraCode.Helpers;
 
 /// <summary>
-/// 剑势统一服务（架构 §8.1 / §14）—— 唯一负责剑势的读取、获得与清空。
+/// 剑势统一服务：读取、获得、限量消耗与清空。
 ///
 /// 剑势是非负整数，无玩法上限、不自然衰减、离开战斗随 <see cref="MomentumPower"/> 自动清零；
-/// <b>只支持「清空全部」</b>，刻意不提供 Spend(N)/Consume(N)（架构 §8.1）。
+/// 限量消耗返回实际消耗量，供卡牌计算收益；清空接口保持原行为。
 /// 卡牌 / 遗物 / 能力一律走本服务，不直接改 <see cref="MomentumPower.Amount"/>。
 /// 本服务自身不读取或修改热量：温区奖励等由卡牌显式组合（§8.1 末条）。
 /// </summary>
@@ -51,7 +51,7 @@ internal static class AuroraMomentumService
 
         if (amount < 0)
         {
-            GD.PushError($"[Aurora][Momentum] GainAsync 拒绝负数剑势 {amount}（剑势只能通过 ClearAll 清空，不能负向消费）。");
+            GD.PushError($"[Aurora][Momentum] GainAsync 拒绝负数剑势 {amount}，减少剑势请使用消耗或清空接口。");
             return;
         }
 
@@ -79,10 +79,34 @@ internal static class AuroraMomentumService
         }
     }
 
-    /// <summary>
-    /// 原子清空全部剑势：读取当前层数、移除 <see cref="MomentumPower"/>，返回实际清空的层数。
-    /// 无剑势时返回 0。「一刀两断」等终结牌应先调用本方法取快照，再按快照结算伤害（§8.1.3）。
-    /// </summary>
+    /// <summary>最多消耗指定数量的剑势；不足时全部消耗，返回实际消耗量。</summary>
+    public static async Task<int> ConsumeUpToAsync(PlayerChoiceContext ctx, Creature owner, int amount, CardModel source)
+    {
+        if (owner == null || amount <= 0)
+        {
+            return 0;
+        }
+
+        var power = owner.GetPower<MomentumPower>();
+        if (power == null || power.Amount <= 0)
+        {
+            return 0;
+        }
+
+        var consumed = System.Math.Min((int)power.Amount, amount);
+        if (consumed == (int)power.Amount)
+        {
+            await PowerCmd.Remove(power);
+        }
+        else
+        {
+            await PowerCmd.ModifyAmount(ctx, power, -consumed, owner, source);
+        }
+
+        return consumed;
+    }
+
+    /// <summary>清空剑势并返回实际清空量。卡牌自行决定在攻击前还是攻击后调用。</summary>
     public static async Task<int> ClearAllAsync(PlayerChoiceContext ctx, Creature owner, CardModel source)
     {
         var power = owner?.GetPower<MomentumPower>();

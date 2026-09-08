@@ -13,13 +13,10 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Common;
 
 /// <summary>
-/// 12 守势蓄锐 / Guarded Focus（普通，B 剑势）。获得 7 格挡；若本回合未打出攻击，获得 2 剑势；若打出前在温区，改为 3 剑势。
-/// 升级：格挡 7→10。
-/// 结算（打出前读快照 → 每次都得格挡 → 仅首次且未打出攻击时得剑势，温区改为 3）：
-/// 「未打出攻击」读本回合本人快照（<see cref="AuroraAttackTurnTracker"/>，含自动打出的攻击）；温区只提升剑势效率不改热量；
-/// 剑势合并为一次 <see cref="AuroraMomentumService.GainAsync"/>。Echo/额外结算每次都得格挡、剑势至多一次。
+/// 守势蓄锐（罕见）：获得7/10格挡；本回合未打出攻击时获得3剑势，温区改为4。
+/// 攻击记录包含自动打出的攻击。额外结算重复格挡，但剑势只在首次结算获得。
 /// </summary>
-public class AuroraGuardedFocus() : AuroraCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class AuroraGuardedFocus() : AuroraCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override string ArtName => "guarded_focus";
 

@@ -13,15 +13,14 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Rare;
 
 /// <summary>
-/// B-R05 归势成垒 / Momentum Bulwark（稀有，B 剑势；消耗）。清空全部剑势，获得 6 + 每势×2 格挡；若清空 ≥8 势，抽 2 张牌。消耗。升级基础格挡 6→10。
-/// 结算：先 <see cref="AuroraMomentumService.ClearAllAsync"/> 取清空量 N → 一次获得 (6 + 2N) 格挡（升级 10+2N）→ N≥8 抽 2。
-/// 0 势仍得 6/10 格挡但不抽牌；不设读取上限（始终清空全势并消耗）。Echo 首段已清空、后续通常只基础格挡。与剑势护体/一刀两断成三选一。
+/// 归势成垒（稀有，保留、消耗）：清空剑势，获得6/10 + 2×清空量的格挡。
+/// 清空至少8剑势时抽2张；保留用于改善防御牌的使用时机。
 /// </summary>
 public class AuroraMomentumBulwark() : AuroraCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override string ArtName => "momentum_bulwark";
 
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Retain, CardKeyword.Exhaust];
 
     protected override IEnumerable<AuroraMechanic> MechanicTips => [AuroraMechanic.Momentum];
 

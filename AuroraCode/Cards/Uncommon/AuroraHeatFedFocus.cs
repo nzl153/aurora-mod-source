@@ -16,7 +16,7 @@ namespace AuroraMod.AuroraCode.Cards.Uncommon;
 /// 结算：读散热前区段 → <see cref="HeatPower.VentUpToAsync"/> 取实际量（内部触发冷却循环等散热监听，本卡不二次分发）→
 /// 每实际散 1 热得 MomentumPerHeat 剑势 → 前过载&&后温区 → 额外 DropBonus 剑势。散热不取消已锁定过热。
 /// </summary>
-public class AuroraHeatFedFocus() : AuroraCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public class AuroraHeatFedFocus() : AuroraCard(0, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override string ArtName => "heat_fed_focus";
 

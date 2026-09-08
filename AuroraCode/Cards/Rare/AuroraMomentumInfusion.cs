@@ -12,9 +12,8 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 namespace AuroraMod.AuroraCode.Cards.Rare;
 
 /// <summary>
-/// H-R04 势能灌注 / Momentum Infusion（稀有，H 剑势×模块；消耗）。清空全部剑势，每清空 3 势使所有模块 +1 强化（最多 +4），随后使所有模块各触发 1 次。消耗。升级费用 1→0。
-/// 结算：<see cref="AuroraMomentumService.ClearAllAsync"/> 取清空量 N → 强化量 min(N÷3, 4) 给每枚现存模块（非分配）→ 所有模块各触发 1 次（Unpowered）。
-/// 少于 3 势强化 0 但仍清空并触发；无模块仍清空并消耗、无替代收益。战斗中途结束停剩余触发。B+C 资源转轨核心（把剑势永久投资进整套模块）。
+/// 势能灌注（稀有，消耗）：最多消耗12剑势，每3点使所有模块获得1强化，随后全部触发1次。
+/// 不足3点仍消耗并触发；无模块时仍支付剑势。升级费用1→0，强化与触发规则保持不变。
 /// </summary>
 public class AuroraMomentumInfusion() : AuroraCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
@@ -27,6 +26,12 @@ public class AuroraMomentumInfusion() : AuroraCard(1, CardType.Skill, CardRarity
 
     private const int PerMomentum = 3;
     private const int MaxEnhance = 4;
+    private const int MaxMomentumSpent = PerMomentum * MaxEnhance;
+
+    protected override IEnumerable<DynamicVar> CanonicalVars =>
+    [
+        new DynamicVar("MaxMomentumSpent", MaxMomentumSpent),
+    ];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
@@ -36,8 +41,8 @@ public class AuroraMomentumInfusion() : AuroraCard(1, CardType.Skill, CardRarity
             return;
         }
 
-        var cleared = await AuroraMomentumService.ClearAllAsync(choiceContext, creature, this);
-        var enhance = Math.Min(cleared / PerMomentum, MaxEnhance);
+        var consumed = await AuroraMomentumService.ConsumeUpToAsync(choiceContext, creature, MaxMomentumSpent, this);
+        var enhance = Math.Min(consumed / PerMomentum, MaxEnhance);
 
         // 每枚现存模块各获得完整强化量（enhance=0 时 EnhanceAll 内部安全跳过）。
         await AuroraModuleController.EnhanceAllAsync(choiceContext, creature, enhance, null);

@@ -11,11 +11,9 @@ using MegaCrit.Sts2.Core.Nodes.Combat;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// B1 凝势 / Gather Edge（罕见，B 剑势）。获得 4 剑势；若打出前处于温区，额外获得 3 剑势。升级基础剑势 4→6。
-/// 结算：打出前读区段快照 → 合并一次 <see cref="AuroraMomentumService.GainAsync"/>。温区只提升剑势效率不改热量。
-/// Echo/额外结算每次都产势（纯产势牌，无 IsFirst 守卫，符合原版「获得 X」类复制行为）。
+/// 凝势（普通）：获得4/6剑势，温区额外获得3。区段在开始结算时读取。
 /// </summary>
-public class AuroraGatherEdge() : AuroraCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public class AuroraGatherEdge() : AuroraCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override string ArtName => "gather_edge";
 

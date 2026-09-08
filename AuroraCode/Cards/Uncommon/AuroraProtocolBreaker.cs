@@ -12,14 +12,10 @@ using MegaCrit.Sts2.Core.ValueProps;
 namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
-/// 38 协议破局 / Protocol Breaker（罕见，B+枢纽）。造成 10 伤害；随后移除目标上由本人施加的 1 层挑战协议；若实际移除，获得 3 剑势。
-/// 升级：伤害 10→13，消费层数/剑势不变。
-/// 结算（攻击→消费 1 层→按实际得剑势）：挑战协议是「该敌人对施加者本人的 powered attack +10% 承伤」的挑衅风险，
-/// 不影响本牌对敌输出；本牌先打后消费，只是把这层风险兑现为剑势。伤害后若目标存活，走
-/// <see cref="AuroraChallengeProtocolService.ConsumeAsync"/> 只消费本人 1 层（返回 0/1），实际消费才 +3 剑势。
-/// 与 #34 全清型分工（继续冒险 vs 逐层兑现）；无协议仍是 1 费 10 伤不空牌；击杀目标则跳过消费与剑势。
+/// 协议破局（普通）：造成8/11伤害，随后移除存活目标上自己的1层挑战协议，成功移除则获得3剑势。
+/// 击杀目标时不发放剑势；保留原类名与命名空间以兼容存档。
 /// </summary>
-public class AuroraProtocolBreaker() : AuroraCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
+public class AuroraProtocolBreaker() : AuroraCard(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override string ArtName => "protocol_breaker";
 
@@ -28,7 +24,7 @@ public class AuroraProtocolBreaker() : AuroraCard(1, CardType.Attack, CardRarity
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new DamageVar(10, ValueProp.Move),
+        new DamageVar(8, ValueProp.Move),
         new DynamicVar("ProtocolConsumed", 1m),
         new DynamicVar("MomentumGain", 3m),
     ];
@@ -61,6 +57,6 @@ public class AuroraProtocolBreaker() : AuroraCard(1, CardType.Attack, CardRarity
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Damage.UpgradeValueBy(3m);   // 10 → 13
+        DynamicVars.Damage.UpgradeValueBy(3m);   // 8 → 11
     }
 }
