@@ -3,11 +3,7 @@ using MegaCrit.Sts2.Core.Modding;
 
 namespace AuroraMod.AuroraCode;
 
-/// <summary>
-/// 模组入口。游戏通过 <see cref="ModInitializerAttribute"/> 在加载时调用 <see cref="Initialize"/>，
-/// 在此执行 Harmony.PatchAll() —— 能量球(AuroraEnergyCounterPatch)、卡框装饰(AuroraCardFramePatch)
-/// 等所有 [HarmonyPatch] 都靠这一步注册，缺了就全部不生效。
-/// </summary>
+/// <summary>模组入口，注册全部 Harmony 补丁。</summary>
 [ModInitializer(nameof(Initialize))]
 public static class AuroraMain
 {

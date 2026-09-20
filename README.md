@@ -13,22 +13,23 @@
 
 ## 这个角色是什么
 
-核心是一条**风险条**而不是资源条：**热量**。
+核心机制是**热量**：一条风险条，而不是第二套能量。
 
-打得越狠，炉温越高。进入过载区（7+）全部伤害 ×1.25，
-但热量到 10 就会锁定一笔过热伤害在回合末结算——而且**散热不能抹掉已锁定的债**。
-每一回合都在回答同一个问题：这一刀值不值得让炉温再涨一格。
+热量进入过载区（7+）后，奥萝拉自身的 Powered Attack（强力攻击）伤害 ×1.25；
+模块等 Unpowered（非强力攻击）伤害不受这个倍率影响。
+热量达到 10 会锁定一笔过热伤害，在回合末结算；之后散热可以降低当前热量，
+但不能取消或降低已经锁定的伤害。
 
-围绕它有四条流派：
+围绕热量有四条主要构筑方向：
 
-| 流派 | 回答的问题 |
+| 流派 | 玩法重点 |
 |---|---|
-| **A · 过热暴走** | 我愿意为伤害付出多少血？ |
-| **B · 剑势** | 我是现在就打，还是再等一回合？ |
-| **C · 悬浮模块** | 我这两个格子放什么？ |
-| **D · 指令连锁** | 我这回合的出牌顺序对不对？ |
+| **A · 过热暴走** | 主动冲高热量，以自伤或最大生命为代价换爆发 |
+| **B · 剑势** | 积累剑势获得持续增伤，也可通过特定牌集中兑现 |
+| **C · 悬浮模块** | 在有限模块槽中部署、强化、替换攻击或护盾模块 |
+| **D · 指令连锁** | 围绕每回合手动出牌数量规划出牌顺序 |
 
-设计取舍的完整说明见 **[docs/DESIGN.md](docs/DESIGN.md)**。
+完整设计与维护说明见 **[docs/DESIGN.md](docs/DESIGN.md)**。
 
 ## 内容量
 
@@ -65,7 +66,7 @@
 > dotnet build                     # 正式版（默认）
 > ```
 >
-> API 差异清单与踩过的坑见 [docs/DESIGN.md](docs/DESIGN.md) §8。
+> API 差异清单见 [docs/DESIGN.md](docs/DESIGN.md) §8。
 
 ---
 
@@ -76,13 +77,13 @@
 - Godot 4.5.1（**mono / .NET 版**）
 - .NET SDK 8.0+
 - [spine-godot 运行时](https://zh.esotericsoftware.com/spine-godot)
-  —— **不包含在本仓库中**，需自行获取，放到 `bin/`
-  （`bin/spine_godot_extension.gdextension` 已就位，缺运行时时 Godot 打不开 Spine 资源）
+  —— **不包含在本仓库中**，需自行获取并放到 `bin/`
+  （`bin/spine_godot_extension.gdextension` 已就位，缺运行时时 Godot 无法打开 Spine 资源）
 
-### 构建顺序（不能反）
+### 构建顺序
 
-改了本地化或美术资源，**必须先导 pck、再 build dll**。
-因为 headless 导出会触发 Godot 自己的 C# 编译，把已部署的 dll 覆盖掉。
+改了本地化或美术资源时，**先导 pck，再 build dll**。
+headless 导出会触发 Godot 的 C# 编译，可能覆盖已部署的 dll。
 
 ```bash
 # 1. 导 pck（游戏必须完全退出）
@@ -95,20 +96,20 @@ git checkout HEAD -- AuroraMod.csproj AuroraMod.sln
 STS2_GAME_DIR="<游戏安装目录>" dotnet build AuroraMod.csproj -c Debug
 ```
 
-只改 C# 代码的话，第 2 步就够了。
+只改 C# 代码时，第 2 步即可。
 
-构建应当是 **0 错误**。警告数量取决于 BaseLib 版本
-（某些版本会发 2 个 CS0618，正式版上工作正常）——多出来的警告都值得看一眼。
+构建应当是 **0 错误**。警告数量取决于 BaseLib 版本；
+出现新的警告时建议逐项确认。
 
 ---
 
 ## 目录结构
 
-```
+```text
 AuroraCode/          C# 逻辑
   Cards/             卡牌，按稀有度分目录
   Powers/            能力（含 Heat / Momentum / Chain 等核心机制）
-  Relics/  Potions/  Events/
+  Relics/ Potions/ Events/
   Helpers/           模块控制器、机制悬停等共用逻辑
   Patches/           Harmony 补丁（含第三方 mod 兼容层）
   Visuals/           命中特效
@@ -116,7 +117,7 @@ Aurora/              Godot 资源（进 pck）
   Images/            卡面、图标、特效贴图
   Spine/             骨骼动画
   localization/      zhs / eng / jpn / rus
-  Scenes/  Shaders/  Materials/  Audio/
+  Scenes/ Shaders/ Materials/ Audio/
 docs/DESIGN.md       设计与维护文档
 ```
 
@@ -126,9 +127,8 @@ docs/DESIGN.md       设计与维护文档
 
 **双授权**，详见 [LICENSE](LICENSE)：
 
-- **代码** → MIT，随便用
-- **美术 / 音频素材** → CC BY-NC-SA 4.0：可以用、可以改，
-  但要署名、不得商用、衍生作品保持同协议
+- **代码** → MIT
+- **美术 / 音频素材** → CC BY-NC-SA 4.0：允许使用和修改，但须署名、不得商用，衍生作品保持同协议
 
 游戏本体的一切内容归 Mega Crit 所有，不在本仓库内。
 
@@ -137,7 +137,6 @@ docs/DESIGN.md       设计与维护文档
 ## 说明
 
 这是个人兴趣项目，不接受赞助、不做商业化。
-欢迎 fork 来做自己的角色——`AuroraCode/Powers/` 里那套自定义机制
-（区段化资源条、场上模块、每回合出牌计数）应该是最有参考价值的部分。
+欢迎 fork 来做自己的角色。`AuroraCode/Powers/` 中的热量、模块和连锁机制可作为实现参考。
 
 提 issue 前建议先读 [docs/DESIGN.md](docs/DESIGN.md) §4「刻意为之，不是 bug」。
