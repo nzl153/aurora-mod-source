@@ -44,15 +44,9 @@ public class AuroraSequenceCutoff() : AuroraCard(2, CardType.Attack, CardRarity.
         var hits = special ? 2 : 1;
         var dmg = (int)DynamicVars.Damage.BaseValue;
 
-        for (var i = 0; i < hits; i++)
-        {
-            if (!CombatManager.Instance.IsInProgress)
-            {
-                break;
-            }
-
-            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
-        }
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move)
+            .WithHitCount(hits)
+            .Execute(choiceContext);
 
         // 伤害在散热之前；战斗仍在进行则散尽全部热量（不触发过热，不取消已登记 Pending）。
         if (CombatManager.Instance.IsInProgress)

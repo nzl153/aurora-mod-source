@@ -1,4 +1,7 @@
 using System;
+using AuroraMod.AuroraCode.Cards.Common;
+using AuroraMod.AuroraCode.Cards.Rare;
+using AuroraMod.AuroraCode.Cards.Uncommon;
 using MegaCrit.Sts2.Core.Models;
 
 namespace AuroraMod.AuroraCode.Helpers;
@@ -6,17 +9,17 @@ namespace AuroraMod.AuroraCode.Helpers;
 /// <summary>
 /// 「打出前会烧到哪」预览取值器（纯只读表现层）。
 ///
-/// 不改任何卡：积热/散热卡早就把数值声明在 <c>CanonicalVars</c> 里了，这里按既有命名约定去读——
+/// 只读取已核对为固定即时积热/散热的卡，沿用 <c>CanonicalVars</c> 的命名约定——
 /// <list type="bullet">
-/// <item><c>PowerVar&lt;HeatPower&gt;</c> → 键名 <c>"HeatPower"</c>（12 张）</item>
-/// <item><c>DynamicVar("HeatGain")</c>（7 张）</item>
-/// <item><c>DynamicVar("VentMax")</c> / <c>"VentAmount"</c> → 负向（11 张）</item>
+/// <item><c>PowerVar&lt;HeatPower&gt;</c> → 键名 <c>"HeatPower"</c></item>
+/// <item><c>DynamicVar("HeatGain")</c></item>
+/// <item><c>DynamicVar("VentMax")</c> / <c>"VentAmount"</c> → 负向</item>
 /// </list>
 ///
 /// <b>刻意的局限，别当 bug</b>：
 /// ① 条件卡（「根据打出前所在区段…」「若已连锁则…」）无法静态预览，一律返回 0 不猜；
 ///    宁可不显示，也绝不显示一个会骗人的预览段。
-/// ② 同时带积热与散热变量的卡按「先散后积」的净值算，与多数卡的实际结算顺序一致，但不保证每张都是。
+/// ② 能力的延迟触发不属于打出时的热量增量，不参与。
 /// ③ <c>TargetHeat</c>（设定到某值）语义不是增量，不参与。
 ///
 /// 绝不消费 RNG、不改 Power/Card 状态、不触发任何结算副作用。
@@ -33,7 +36,9 @@ internal static class AuroraHeatPreview
     /// </summary>
     public static int ResolveDelta(CardModel card)
     {
-        if (card == null)
+        if (card is not (AuroraReactorThrust or AuroraSearingCut or AuroraTemperedByHeat
+            or AuroraVentShield or AuroraAblativeArmor or AuroraBurningAdvance or AuroraCrossfire
+            or AuroraHeatFedFocus or AuroraPrecisionVent or AuroraThermodynamicConversion or AuroraLimitFracture))
         {
             return 0;
         }

@@ -53,15 +53,9 @@ public class AuroraScorchedEarthStorm() : AuroraCard(2, CardType.Attack, CardRar
         var dmg = (int)DynamicVars.Damage.BaseValue;
 
         // 初始段数：每段独立 powered AoE；全体死亡则停手。
-        for (var i = 0; i < initialHits; i++)
-        {
-            if (!CombatManager.Instance.IsInProgress)
-            {
-                break;
-            }
-
-            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
-        }
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move)
+            .WithHitCount(initialHits)
+            .Execute(choiceContext);
 
         // 全体已清场：不积热、不追加第三段（胜利宽恕）。
         if (!CombatManager.Instance.IsInProgress)

@@ -18,7 +18,7 @@ namespace AuroraMod.AuroraCode.Cards.Rare;
 /// 这是<b>有意保留</b>的高门槛循环：本牌不回手、不抽牌、不退能量，要重复使用必须靠完整构筑（抽牌+能量+小牌体系）自行凑齐 6 张手动出牌，
 /// 本牌无法单独闭环。按裁决不加「每回合一次」等全局封锁。
 /// 结算：读打出前手动出牌数快照（本牌通常是第 7 张；本牌自身不计入，无法帮自己达标）→ special = IsFirstInSeries && count≥6
-/// → 打 HitCount 段、否则 1 段，每段独立 powered（各自消费锁定）。段间守卫战斗仍在进行则继续。
+/// → 打 HitCount 段、否则 1 段，每段独立 powered（各自消费锁定）。段间存活检查由引擎处理。
 /// AutoPlay/Echo/复制不推进手动出牌数；≥6 仅卡内门槛、不改全局第 3 张激活规则。D 招牌高连锁终结技。
 /// </summary>
 public class AuroraAnnihilationCommand() : AuroraCard(1, CardType.Attack, CardRarity.Rare, TargetType.AnyEnemy)
@@ -53,15 +53,9 @@ public class AuroraAnnihilationCommand() : AuroraCard(1, CardType.Attack, CardRa
         var hits = special ? (int)DynamicVars["HitCount"].BaseValue : 1;
         var dmg = (int)DynamicVars.Damage.BaseValue;
 
-        for (var i = 0; i < hits; i++)
-        {
-            if (!CombatManager.Instance.IsInProgress)
-            {
-                break;
-            }
-
-            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
-        }
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move)
+            .WithHitCount(hits)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

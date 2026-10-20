@@ -25,7 +25,6 @@ public static class AuroraTopPanelIconPatch
     [HarmonyPrefix]
     public static bool IconPrefix(CharacterModel __instance, ref Control __result)
     {
-        GD.Print($"[Aurora] Icon getter called. entry='{__instance?.Id.Entry}' isAurora={IsAurora(__instance)} exists={ResourceLoader.Exists(IconPath)}");
         if (!IsAurora(__instance) || !ResourceLoader.Exists(IconPath))
             return true; // 非奥萝拉 → 走原逻辑
 

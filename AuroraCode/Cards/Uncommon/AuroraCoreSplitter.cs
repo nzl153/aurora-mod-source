@@ -22,7 +22,7 @@ namespace AuroraMod.AuroraCode.Cards.Uncommon;
 /// 已 Pending → Max(已锁定峰值 LockedDamage, 实时预计),散热不降。≥12 → 2 段,否则 1 段。
 /// 【勿改回 NextOverheatDamageFor】那个只返回「按已过热次数推的基础档」,不含红线附加/重复越线附加、也不读已锁定峰值,
 /// 会导致红线锁定 ≥12 时悬停显示够门槛、实结算却只打 1 段。逐段独立结算(力量/易伤/过载/取整/锁定+2/格挡/伤害Cap),
-/// 每段前守卫战斗/目标/死亡,不转移目标。本牌不改变热量/过热次数/预告值。
+/// 段间存活检查由引擎处理，不转移目标。本牌不改变热量/过热次数/预告值。
 /// 双段是主体伤害形态,Echo 每次真实结算都重新读取并执行 1/2 段(不加 IsFirstInSeries 守卫)。
 /// </summary>
 public class AuroraCoreSplitter() : AuroraCard(2, CardType.Attack, CardRarity.Uncommon, TargetType.AnyEnemy)
@@ -52,16 +52,9 @@ public class AuroraCoreSplitter() : AuroraCard(2, CardType.Attack, CardRarity.Un
             : 1;
 
         var damage = (int)DynamicVars.Damage.BaseValue;
-        for (var i = 0; i < hits; i++)
-        {
-            // 段间守卫:战斗已结束或目标已死则停手,不转移目标。
-            if (!CombatManager.Instance.IsInProgress || cardPlay.Target == null || cardPlay.Target.IsDead)
-            {
-                break;
-            }
-
-            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
-        }
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move)
+            .WithHitCount(hits)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

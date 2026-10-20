@@ -14,7 +14,7 @@ namespace AuroraMod.AuroraCode.Cards.Uncommon;
 
 /// <summary>
 /// 27 熔毁斩 / Meltdown Slash（罕见，A）。造成 10 伤；若打出前在过载区，改为造成 2 次，随后引爆。升级每段 10→12。
-/// 顺序（§4.5）：开始只读一次区段 → 冷/温区 1 段 10/12；过载/临界区 2 段独立 10/12 后调标准 IgniteAsync。
+/// 顺序（§4.5）：开始只读一次区段 → 冷/温区 1 段 10/12；过载/临界区一条命令打 2 段 10/12 后调标准 IgniteAsync。
 /// 两段各自吃力量/易伤/过载×1.25/宕机/向下取整/消费本人锁定（中心补丁各段 +2），绝不合并为 20/24 单段。
 /// 引爆走标准过热流程（过热计数+1→监听→10/12/14/16 可格挡自伤→清零→下回合宕机）；不因首段击杀而免除引爆。
 /// 1 费罕见位数值上调（对照原版 680 张卡解包统计：奥萝拉 1 费罕见攻击均值 7.2 / 中位 7，
@@ -40,16 +40,14 @@ public class AuroraMeltdownSlash() : AuroraCard(1, CardType.Attack, CardRarity.U
         var overloaded = zone is HeatPower.HeatZone.Overload or HeatPower.HeatZone.Critical;
         var damage = (int)DynamicVars.Damage.BaseValue;
 
-        // 第一段（两分支都打）。
-        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move)
+            .WithHitCount(overloaded ? 2 : 1)
+            .Execute(choiceContext);
 
         if (!overloaded)
         {
             return;
         }
-
-        // 过载/临界：独立第二段（同目标；首段击杀不转移目标、不免除引爆）。
-        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, damage, ValueProp.Move).Execute(choiceContext);
 
         // 两段后引爆。战斗已被引擎正式终止时不在结算外强写过热状态。
         if (creature != null && CombatManager.Instance?.IsInProgress == true)

@@ -16,7 +16,7 @@
   "AURORAMOD-FULL_LOAD_COUPLER.description": "Первое заполнение всех ячеек за бой: каждый модуль получает 2 Усиления и активируется один раз, затем +3 Нагрева. Последнее развёртывание также может активировать Сторожевую матрицу.",
   "AURORAMOD-LIMIT_BREAK_REACTOR.title": "Реактор снятых ограничений",
   "AURORAMOD-LIMIT_BREAK_REACTOR.flavor": "Охлаждение — лишь пауза перед следующим отказом.",
-  "AURORAMOD-LIMIT_BREAK_REACTOR.description": "В начале каждого хода дает 1 Энергию. В конце каждого хода повышает Нагрев на 2 перед срабатыванием Перегрева.",
+  "AURORAMOD-LIMIT_BREAK_REACTOR.description": "В начале каждого хода дает 1 энергии. В конце каждого хода повышает Нагрев на 2 перед срабатыванием Перегрева.",
   "AURORAMOD-AURORA_PRELOAD_ATTACK_MODULE_RELIC.title": "Предзагрузка вооружения: Управление огнём",
   "AURORAMOD-AURORA_PRELOAD_ATTACK_MODULE_RELIC.flavor": "Сборочная линия всё ещё считает, что война не окончена.",
   "AURORAMOD-AURORA_PRELOAD_ATTACK_MODULE_RELIC.description": "В начале вашего первого хода следующего боя развёртывает атакующий модуль, затем исчезает.",

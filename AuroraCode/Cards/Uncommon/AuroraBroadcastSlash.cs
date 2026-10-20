@@ -15,7 +15,7 @@ namespace AuroraMod.AuroraCode.Cards.Uncommon;
 /// <summary>
 /// D3 广播斩 / Broadcast Slash（罕见，D 指令连锁；群体）。对所有敌人造成 7 伤害；若打出前已连锁，改为造成两次。升级每段 7→9。
 /// 结算：读打出前连锁快照一次 → special = IsFirstInSeries && 已连锁 → 打 HitCount 段完整 AoE，否则单段。
-/// 段间守卫：战斗已结束则停手；群体无单目标死亡判定。连锁只在两段之间不复判。Echo 额外结算按其自身 IsFirst 规则。
+/// 段间存活检查由引擎处理；连锁在两段之间不复判。Echo 额外结算按其自身 IsFirst 规则。
 /// </summary>
 public class AuroraBroadcastSlash() : AuroraCard(1, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
 {
@@ -42,15 +42,9 @@ public class AuroraBroadcastSlash() : AuroraCard(1, CardType.Attack, CardRarity.
         var hits = special ? (int)DynamicVars["HitCount"].BaseValue : 1;
         var dmg = (int)DynamicVars.Damage.BaseValue;
 
-        for (var i = 0; i < hits; i++)
-        {
-            if (!CombatManager.Instance.IsInProgress)
-            {
-                break;
-            }
-
-            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
-        }
+        await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move)
+            .WithHitCount(hits)
+            .Execute(choiceContext);
     }
 
     protected override void OnUpgrade()

@@ -53,16 +53,9 @@ public class AuroraSequenceStrike() : AuroraCard(1, CardType.Attack, CardRarity.
         {
             var hits = (int)DynamicVars["HitCount"].BaseValue;
             var dmg = (int)DynamicVars["ChainedDamage"].BaseValue;
-            for (var i = 0; i < hits; i++)
-            {
-                // 段间守卫：战斗已结束或目标已死则停手，不空打尸体。
-                if (!CombatManager.Instance.IsInProgress || cardPlay.Target == null || cardPlay.Target.IsDead)
-                {
-                    break;
-                }
-
-                await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move).Execute(choiceContext);
-            }
+            await AuroraCardAttack.Create(this, cardPlay, cardPlay.Target, dmg, ValueProp.Move)
+                .WithHitCount(hits)
+                .Execute(choiceContext);
 
             // 两段尝试后：打出前在冷区则积 1 热（目标即使在攻击中死亡，只要战斗仍有效仍积热）。
             if (zone == HeatPower.HeatZone.Cold && CombatManager.Instance.IsInProgress)
