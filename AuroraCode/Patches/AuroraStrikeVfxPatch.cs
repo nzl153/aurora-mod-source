@@ -41,6 +41,7 @@ public static class AuroraStrikeVfxPatch
         typeof(Creature),
         typeof(CardModel),
         typeof(MegaCrit.Sts2.Core.Entities.Cards.CardPlay),
+        typeof(MegaCrit.Sts2.Core.Hooks.ModifyDamageHookType),
     })]
     [HarmonyPostfix]
 #else

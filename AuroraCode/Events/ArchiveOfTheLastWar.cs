@@ -143,7 +143,11 @@ public class ArchiveOfTheLastWar : CustomEventModel
     {
         if (Owner?.Creature != null)
         {
+#if STS2_BETA
+            await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, MaxHpCost, cardSource: null);
+#else
             await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, MaxHpCost, false);
+#endif
         }
 
         var prefs = new CardSelectorPrefs(Loc("removePrompt"), 1, 1);
