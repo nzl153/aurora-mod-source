@@ -107,7 +107,7 @@ public class AuroraBurningAdvance() : AuroraCard(1, CardType.Attack, CardRarity.
         return null;
     }
 
-#if STS2_BETA
+#if STS2_V111
     protected override CardLocation GetResultLocationForCardPlay()
     {
         var pile = TryResolveReturnToHand();

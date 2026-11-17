@@ -143,7 +143,7 @@ public class ArchiveOfTheLastWar : CustomEventModel
     {
         if (Owner?.Creature != null)
         {
-#if STS2_BETA
+#if STS2_V113
             await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, MaxHpCost, cardSource: null);
 #else
             await CreatureCmd.LoseMaxHp(new ThrowingPlayerChoiceContext(), Owner.Creature, MaxHpCost, false);

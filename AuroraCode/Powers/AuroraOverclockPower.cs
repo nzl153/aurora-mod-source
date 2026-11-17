@@ -50,7 +50,7 @@ public sealed class AuroraOverclockPower : AuroraPower, IAuroraOverheatCostModif
 
         Flash();
         // 最大生命代价不走自损服务：不计极限断裂、不触发灰烬（isFromCard=true 供原生识别为卡牌来源）。
-#if STS2_BETA
+#if STS2_V113
         // v0.113 起这个参数要真实的来源牌，能力身上没有牌，只能传 null。
         await CreatureCmd.LoseMaxHp(ctx, owner, cost, cardSource: null);
 #else

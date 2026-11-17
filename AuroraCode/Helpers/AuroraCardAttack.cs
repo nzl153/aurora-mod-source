@@ -18,7 +18,7 @@ internal static class AuroraCardAttack
         decimal damage,
         ValueProp valueProp)
     {
-#if STS2_BETA
+#if STS2_V111
         return CommonActions.CardAttack(card, cardPlay, target, damage, valueProp);
 #else
         return CommonActions.CardAttack(card, target, damage, valueProp);

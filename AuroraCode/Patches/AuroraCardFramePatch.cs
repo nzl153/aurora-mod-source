@@ -87,7 +87,7 @@ public static class AuroraCardFramePatch
     }
 }
 
-#if STS2_BETA
+#if STS2_V111
 /// <summary>
 /// beta v0.111.0 专用：卡框贴图还需要在 <c>UpdatePortrait</c> 之后再补一次。
 ///
