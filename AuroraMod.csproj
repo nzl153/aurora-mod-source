@@ -10,9 +10,9 @@
     <Sts2Beta Condition="'$(Sts2Beta)'==''">false</Sts2Beta>
     <DefineConstants>$(DefineConstants);STS2_V111</DefineConstants>
     <DefineConstants Condition="'$(Sts2Beta)'=='true'">$(DefineConstants);STS2_BETA;STS2_V113</DefineConstants>
-    <Version>2.1.3</Version>
-    <AssemblyVersion>2.1.3.0</AssemblyVersion>
-    <FileVersion>2.1.3.0</FileVersion>
+    <Version>2.1.4</Version>
+    <AssemblyVersion>2.1.4.0</AssemblyVersion>
+    <FileVersion>2.1.4.0</FileVersion>
     <TargetFramework>net9.0</TargetFramework>
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>

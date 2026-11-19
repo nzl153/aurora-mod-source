@@ -1,74 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using AuroraMod.AuroraCode.Helpers;
 using HarmonyLib;
-using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Hooks;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
 
 namespace AuroraMod.AuroraCode.Patches;
 
 /// <summary>
-/// 奥萝拉攻击牌的紫刀光命中特效——挂在「实际造成伤害」这一刻，而非「出牌」瞬间。
-///
-/// 此前特效绑在 <c>CardModel.OnPlayWrapper</c> 的可空 <c>target</c> 参数上，遇到自动目标/多段/
-/// 目标解析时机不一致时会「出伤害但没特效」。改为 postfix 核心伤害命令
-/// <see cref="CreatureCmd"/>.Damage(...targets, amount, props, dealer, cardSource)：
-///   · 模块伤害走 cardSource=null → 自动排除（模块有自己的激光特效）；
-///   · 只在 cardSource 是「攻击牌」且施加者是奥萝拉时炸刀光 → 精准锁定攻击命中，
-///     天然覆盖多段、群体、自动目标，永不漏也永不误触。
-///
-/// 纯表现层：不改伤害/结算/netcode，异常静默。
+/// 奥萝拉攻击牌的刀光在扣血前播放，致死一击时目标节点仍在。
+/// <see cref="Hook.BeforeDamageReceived"/> 在 0.111.1 和 0.113.x 的签名一致，无需条件编译。
 /// </summary>
-[HarmonyPatch]
+[HarmonyPatch(typeof(Hook), nameof(Hook.BeforeDamageReceived))]
 public static class AuroraStrikeVfxPatch
 {
-#if STS2_V113
-    // v0.113 起末尾又加了 ModifyDamageHookType；v0.111.0：CreatureCmd.Damage 的 (…, Creature dealer, CardModel cardSource) 这个重载被删了，
-    // 换成末尾带 CardPlay? 的版本。attribute 里的类型数组不参与重载解析，所以编译期发现不了——
-    // 只有启动时 Harmony 抛 Undefined target method，且 PatchAll 一炸全停，整个 mod 的补丁一起失效。
-    [HarmonyPatch(typeof(CreatureCmd), nameof(CreatureCmd.Damage), new[]
-    {
-        typeof(PlayerChoiceContext),
-        typeof(IEnumerable<Creature>),
-        typeof(decimal),
-        typeof(ValueProp),
-        typeof(Creature),
-        typeof(CardModel),
-        typeof(MegaCrit.Sts2.Core.Entities.Cards.CardPlay),
-        typeof(MegaCrit.Sts2.Core.Hooks.ModifyDamageHookType),
-    })]
-    [HarmonyPostfix]
-#elif STS2_V111
-    [HarmonyPatch(typeof(CreatureCmd), nameof(CreatureCmd.Damage), new[]
-    {
-        typeof(PlayerChoiceContext),
-        typeof(IEnumerable<Creature>),
-        typeof(decimal),
-        typeof(ValueProp),
-        typeof(Creature),
-        typeof(CardModel),
-        typeof(MegaCrit.Sts2.Core.Entities.Cards.CardPlay),
-    })]
-    [HarmonyPostfix]
-#else
-    [HarmonyPatch(typeof(CreatureCmd), nameof(CreatureCmd.Damage), new[]
-    {
-        typeof(PlayerChoiceContext),
-        typeof(IEnumerable<Creature>),
-        typeof(decimal),
-        typeof(ValueProp),
-        typeof(Creature),
-        typeof(CardModel),
-    })]
-    [HarmonyPostfix]
-#endif
-    public static void DamagePostfix(IEnumerable<Creature> targets, Creature dealer, CardModel cardSource)
+    [HarmonyPrefix]
+    public static void Prefix(Creature target, Creature dealer, CardModel cardSource)
     {
         try
         {
@@ -96,31 +44,27 @@ public static class AuroraStrikeVfxPatch
                 is AuroraMod.AuroraCode.Powers.HeatPower.HeatZone.Overload
                 or AuroraMod.AuroraCode.Powers.HeatPower.HeatZone.Critical;
 
-            foreach (var target in targets)
+            if (target != null && target.Side != dealer.Side)
             {
-                // 不排除已死目标：致命一击时 target.IsDead 已为真，但这一下仍要出刀光。
-                if (target != null && target.Side != dealer.Side)
+                switch (kind)
                 {
-                    switch (kind)
-                    {
-                        case AuroraStrikeVfxKind.Ultimate:
-                            AuroraStrikeVfx.PlayUltimateSlash(dealer, target);
-                            break;
-                        case AuroraStrikeVfxKind.Flurry:
-                            AuroraStrikeVfx.PlayFlurry(dealer, target);
-                            break;
-                        case AuroraStrikeVfxKind.Heavy:
-                            AuroraStrikeVfx.PlayHeavy(dealer, target);
-                            break;
-                        default:
-                            AuroraStrikeVfx.PlayStrikeImpact(dealer, target);
-                            break;
-                    }
+                    case AuroraStrikeVfxKind.Ultimate:
+                        AuroraStrikeVfx.PlayUltimateSlash(dealer, target);
+                        break;
+                    case AuroraStrikeVfxKind.Flurry:
+                        AuroraStrikeVfx.PlayFlurry(dealer, target);
+                        break;
+                    case AuroraStrikeVfxKind.Heavy:
+                        AuroraStrikeVfx.PlayHeavy(dealer, target);
+                        break;
+                    default:
+                        AuroraStrikeVfx.PlayStrikeImpact(dealer, target);
+                        break;
+                }
 
-                    if (overload)
-                    {
-                        AuroraStrikeVfx.PlayOverloadEmber(dealer, target);
-                    }
+                if (overload)
+                {
+                    AuroraStrikeVfx.PlayOverloadEmber(dealer, target);
                 }
             }
         }
